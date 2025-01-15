@@ -8,11 +8,10 @@ read a character
 */
 void main()
 {
-    char c = getchar();
-    while (c != '*')
+    char c = ' ';
+    while ((c = getchar()) != EOF)
     {
         putchar(c);
-        c = getchar();
     }
     printf("Bye\n");
 }

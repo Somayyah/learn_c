@@ -11,7 +11,8 @@ void main()
     int c; // testing int with EOF
     while ((c = getchar()) != EOF)
     {
-        putchar(c);
+        printf("c (char value) = %c\tc (int value) = %d\n", c, c);
+        //putchar(c);
     }
     printf("Bye\n");
 }

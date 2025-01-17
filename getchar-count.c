@@ -1,14 +1,11 @@
 #include <stdio.h>
 
-/*
-Count characters in an input until EOF
-*/
+/* count characters in input */
+
 void main()
 {
-    int c, count=0;
-    while ((c = getchar()) != EOF && c != 10)
-    {
-        count++;
-    }
-    printf("Character Count = %d\n", count);
+    double nc;
+    for (nc = 0; getchar() != EOF; ++nc)
+    ;
+    printf("%.0f\n", nc);
 }

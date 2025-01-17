@@ -8,7 +8,7 @@ read a character
 */
 void main()
 {
-    int c = ' ';
+    char c = ' '; // testing char with EOF
     while ((c = getchar()) != EOF)
     {
         putchar(c);

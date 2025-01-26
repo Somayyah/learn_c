@@ -19,15 +19,15 @@ int main()
     
     while ((c = getchar()) != EOF)
     {
-        ++nc;
+        ++nc; // Increment characters count
         if (c == '\n')
-            ++nl;
+            ++nl; // Increment newlines count
         if (c == '\n' || c == ' ' || c == '\t' )
-            STATE = OUT;
-        else if (STATE == OUT)
+            STATE = OUT; // We're no longer in a word
+        else if (STATE == OUT) // If the character is not a newline or an empty space or a tab yet the state is OUT
         {
-            STATE = IN;
-            ++nw;
+            STATE = IN; // We're now inside a word
+            ++nw; // Increment words count
         }
     }
 

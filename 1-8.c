@@ -8,7 +8,7 @@ int main() {
     int tabs = 0;
     int nl = 0;
 
-    // Read characters until EOF is encountered
+    // Read characters until EOF
     while ((c = getchar()) != EOF) {
         switch (c) {
             case ' ':  // Increment blank counter

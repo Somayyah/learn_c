@@ -15,13 +15,16 @@
     {
         switch (c){
             case 8 :
-                printf("%s", "\\b");
+                putchar('\\');
+                putchar('b');
                 break;
             case 9 :
-                printf("%s", "\\t");
+                putchar('\\');
+                putchar('t');
                 break;
             case 92:
-                printf("%s", "\\\\");
+                putchar('\\');
+                putchar('\\');
                 break;
             default:
                 putchar(c);

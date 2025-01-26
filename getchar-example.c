@@ -16,3 +16,5 @@ void main()
     }
     printf("Bye\n");
 }
+
+// int > char with getchar

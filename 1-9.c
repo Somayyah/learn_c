@@ -20,16 +20,12 @@ int main()
     int c = ' ';
     while ((c = getchar()) != EOF )
     {
-        printf("Char Before: %c\n", c);
         if ( c == ' ') { 
             if (c == (c = getchar())) continue;
-            //putchar(c);
-            printf("Char In loop: %c\n", c);
+            putchar(c);
         }
-        printf("Char after: %c\n", c);
-        //putchar(c);
+        putchar(c);
     }
-    //printf("%d", putchar(' '));
         
     return 0;
 }

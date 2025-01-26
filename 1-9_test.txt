@@ -1,0 +1,5 @@
+ This is a test file.
+It has multiple spaces in it.
+ Some lines start with spaces.
+Others end   with spaces. 
+Some lines have no spaces at all.

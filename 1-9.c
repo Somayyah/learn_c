@@ -13,7 +13,6 @@
  ***************************************************************/
 
 #include <stdio.h>
-// #include <stdbool.h>
 
 int main()
 {
@@ -21,8 +20,9 @@ int main()
     while ((c = getchar()) != EOF )
     {
         if ( c == ' ') { 
-            if (c == (c = getchar())) continue;
             putchar(c);
+            while ((c = getchar())  == ' ') 
+                ; // Do nothing
         }
         putchar(c);
     }

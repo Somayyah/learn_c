@@ -5,28 +5,32 @@
 * is any sequence of characters that does not contain a blank,  *
 * tab or newline. This is a bare-bones version                  *
 * of the UNIX program wc.                                       *
- ***************************************************************/
+****************************************************************/
 
- #include <stdio.h>
+#include <stdio.h>
 
- int main()
- {
-    int wc = 0;
-    int c = 0;
+#define IN 1    // Inside a word
+#define OUT 0   // Outside a word
 
+int main()
+{
+    int c, nl, nw, nc, STATE = OUT;
+    nl = nw = nc = 0;
+    
     while ((c = getchar()) != EOF)
     {
-        switch (c){
-            case ' ' : break;
-            case '\t': break;
-            case '\n': break;
-            default:
-                ++wc;
-                while ((c = getchar()) != ' ' && c != '\t' && c != '\n' )
-                ;
-                break;
+        ++nc;
+        if (c == '\n')
+            ++nl;
+        if (c == '\n' || c == ' ' || c == '\t' )
+            STATE = OUT;
+        else if (STATE == OUT)
+        {
+            STATE = IN;
+            ++nw;
         }
     }
-    printf("Number of words = %d\n", wc);
+
+    printf("%d %d %d\n", nl, nw, nc);
     return 0;
- }
+}

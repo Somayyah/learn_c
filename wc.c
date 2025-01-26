@@ -17,10 +17,12 @@
     while ((c = getchar()) != EOF)
     {
         switch (c){
-            case ' ' || '\t' || '\n': break; // This is wrong because the statement will be case 1 OR case 0 which is not what we want.
+            case ' ' : break;
+            case '\t': break;
+            case '\n': break;
             default:
                 ++wc;
-                while ((c = getchar()) != ' ' && c != '\t' && c != '\n' && c != EOF)
+                while ((c = getchar()) != ' ' && c != '\t' && c != '\n' )
                 ;
                 break;
         }

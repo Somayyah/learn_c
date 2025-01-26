@@ -2,18 +2,31 @@
 
 #include <stdio.h>
 
-void main()
-{
-    int c, blanks = 0, tabs = 0, nl = 0;
+int main() {
+    int c;          
+    int blanks = 0;
+    int tabs = 0;
+    int nl = 0;
 
-    while ((c = getchar()) != EOF){
-        if (c == ' ') 
-            ++blanks;
-        else if (c == '\t')
-            ++tabs;
-        else if (c == '\n')
-            ++nl;
+    // Read characters until EOF is encountered
+    while ((c = getchar()) != EOF) {
+        switch (c) {
+            case ' ':  // Increment blank counter
+                ++blanks;
+                break;
+            case '\t': // Increment tab counter
+                ++tabs;
+                break;
+            case '\n': // Increment newline counter
+                ++nl;
+                break;
+            default:
+                // Do nothing
+                break;
+        }
     }
-    
+
     printf("Blanks: %d\nTabs: %d\nNewLines: %d\n", blanks, tabs, nl);
+
+    return 0;
 }

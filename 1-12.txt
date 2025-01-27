@@ -1,0 +1,89 @@
+Hello world
+This is a test
+---
+Hello
+world
+This
+is
+a
+test
+
+   Hello   world   
+This is    a test   
+---
+Hello
+world
+This
+is
+a
+test
+
+a
+---
+a
+
+---
+(no output expected)
+
+Hello, world! This is a test.
+---
+Hello,
+world!
+This
+is
+a
+test.
+
+Hello\tworld\nThis is\ta test\n
+---
+Hello
+world
+This
+is
+a
+test
+
+  \t \n \t   
+---
+(no output expected)
+
+Hello
+---
+Hello
+
+Hello  
+---
+Hello
+
+  Hello
+---
+Hello
+
+Hello\tworld
+---
+Hello
+world
+
+Hello\nworld
+---
+Hello
+world
+
+Hello\t\tworld
+---
+Hello
+world
+
+Hello  world
+---
+Hello
+world
+
+Hello\t \nworld
+---
+Hello
+world
+
+(empty input)
+---
+(no output expected)

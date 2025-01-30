@@ -1,8 +1,7 @@
 #include <stdio.h>
 
-// Driver code
 int main()
 {
-    printf("Hello World!!!\n");
+    printf("hello, world\n");
     return 0;
 }

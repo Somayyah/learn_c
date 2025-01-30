@@ -12,7 +12,7 @@
 int main()
 {   
     int c, cn, bn, nn, tn ; // Characters, Blanks, Newlines, Tabs
-    int ndigits[10];
+    int ndigits[10];        // Number of occurrences of each digit
 
     for (int i = 0; i < 10; i++) {
         ndigits[i] = 0;

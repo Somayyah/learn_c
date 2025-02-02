@@ -28,13 +28,14 @@ int main()
             continue;
         }
 
-        while ((c = getchar()) != '\n' && c != ' ' && c != '\t' ) // Check if we are in
+        while (((c = getchar()) != '\n' && c != ' ' && c != '\t')) // Check if we are in
         {
+            STATE=IN;
             if (c == EOF)
                 break;
             ++counter; // letter counter incremented
-            STATE = IN;
         }
+        
         ++histogram[counter];
         counter = 0;
     }

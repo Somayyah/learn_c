@@ -27,7 +27,15 @@ int main()
             continue;
         }
 
+        while ((c = getchar()) != '\n' && c != ' ' && c != '\t' && c != EOF)
+        {
+            ++counter;
+            STATE = IN;
+        }
 
+        ++histogram[counter];
+        counter = 0;
+        STATE=OUT;
     }
 
     return 0;

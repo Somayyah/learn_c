@@ -11,7 +11,8 @@
 
 int main()
 {
-    int c, histogram[10];
+    int c, histogram[10], counter, STATE; // String, histogram array, letters counter, in / outside a word
+    c = counter = 0;
 
     for (int i = 0; i < 10; i++)
     {
@@ -20,7 +21,13 @@ int main()
     
     while ((c = getchar()) != EOF)
     {
-        
+        if (c == ' ' || c == '\n' || c == '\t') 
+        {
+            STATE = OUT;
+            continue;
+        }
+
+
     }
 
     return 0;

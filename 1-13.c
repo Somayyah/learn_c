@@ -6,6 +6,9 @@
 
 #include <stdio.h>
 
+#define IN 1
+#define OUT 0
+
 int main()
 {
     int c, histogram[10];
@@ -16,7 +19,9 @@ int main()
     }
     
     while ((c = getchar()) != EOF)
-    ;
+    {
+        
+    }
 
     return 0;
 }

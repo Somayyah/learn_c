@@ -21,15 +21,17 @@ int main()
     
     while ((c = getchar()) != EOF)
     {
-        if (c == ' ' || c == '\n' || c == '\t') // Check if we are outside  
+        if ((c == ' ' || c == '\n' || c == '\t') && STATE == IN) // Check if we are outside  
         {
             STATE = OUT;
             counter = 0;
             continue;
         }
 
-        while ((c = getchar()) != '\n' && c != ' ' && c != '\t' && c != EOF) // Check if we are in
+        while ((c = getchar()) != '\n' && c != ' ' && c != '\t' ) // Check if we are in
         {
+            if (c == EOF)
+                break;
             ++counter; // letter counter incremented
             STATE = IN;
         }
@@ -38,7 +40,7 @@ int main()
     }
 
     for (int i = 0; i < 10 ; i++)
-        printf("%d letter words: %d\n", i, histogram[i]);
+        printf("%d : %d\n", i, histogram[i]);
     return 0;
 }
 

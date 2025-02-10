@@ -6,22 +6,28 @@
 
 #include <stdio.h>
 
+#define IN 1
+#define OUT 0
+
 int main() {
 
   int c = 0;
   int histogram[12] = {0};  // This ensures all elements are 0
   int counter = 0;
+  int state = OUT;
 
   while ((c = getchar()) != EOF) {
 
       if (c == ' ' || c == '\n' || c == '\t') {
+        if (state == OUT) continue;
+        state = OUT;
         if (counter > 0 && counter < 11) ++histogram[counter];
         if (counter >= 11) ++histogram[11]; // If word had more than 10 letters
         counter = 0;
       }
       else 
       {
-        if (c == EOF) break;
+        state = IN;   
         ++counter;
       }
   }

@@ -8,7 +8,9 @@
 
 int main() {
 
-  int c = 0, histogram[12] = {0}, counter = 0;
+  int c = 0;
+  int histogram[12] = {0};  // This ensures all elements are 0
+  int counter = 0;
 
   while ((c = getchar()) != EOF) {
 

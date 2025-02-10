@@ -15,14 +15,15 @@ int main() {
   int histogram[12] = {0};  // This ensures all elements are 0
   int counter = 0;
   int state = OUT;
+  c = getchar();
 
-  while ((c = getchar()) != EOF) {
+  while (c = getchar()) != EOF) {
 
       if (c == ' ' || c == '\n' || c == '\t') {
         if (state == OUT) continue;
         state = OUT;
         if (counter > 0 && counter < 11) ++histogram[counter];
-        if (counter >= 11) ++histogram[11]; // If word had more than 10 letters
+        if (counter >= 11) ++histogram[11];
         counter = 0;
       }
       else 
@@ -30,8 +31,14 @@ int main() {
         state = IN;   
         ++counter;
       }
+
   }
 
+  if (counter > 0) {  
+    if (counter < 11) ++histogram[counter];
+    else ++histogram[11];
+  }
+  
   for (int i = 0; i < 12; i++)
     printf("%d : %d\n", i, histogram[i]);
   return 0;

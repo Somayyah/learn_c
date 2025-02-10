@@ -17,7 +17,7 @@ int main() {
   int state = OUT;
   c = getchar();
 
-  while (c = getchar()) != EOF) {
+  while ((c = getchar()) != EOF) {
 
       if (c == ' ' || c == '\n' || c == '\t') {
         if (state == OUT) continue;
@@ -31,14 +31,13 @@ int main() {
         state = IN;   
         ++counter;
       }
-
   }
 
   if (counter > 0) {  
     if (counter < 11) ++histogram[counter];
     else ++histogram[11];
   }
-  
+
   for (int i = 0; i < 12; i++)
     printf("%d : %d\n", i, histogram[i]);
   return 0;

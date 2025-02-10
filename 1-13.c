@@ -8,12 +8,7 @@
 
 int main() {
 
-  int c, histogram[12], counter ;
-  c = counter = 0;
-
-  for (int i = 0; i < 12; i++) {
-    histogram[i] = 0;
-  }
+  int c = 0, histogram[12] = {0}, counter = 0;
 
   while ((c = getchar()) != EOF) {
 

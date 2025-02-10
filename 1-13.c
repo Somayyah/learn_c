@@ -6,42 +6,30 @@
 
 #include <stdio.h>
 
-#define IN 1
-#define OUT 0
-
 int main() {
 
-  int c, histogram[10], counter, STATE = IN;
+  int c, histogram[12], counter ;
   c = counter = 0;
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 12; i++) {
     histogram[i] = 0;
   }
 
   while ((c = getchar()) != EOF) {
 
-    if (STATE = IN) {
-      if (c = ' ' || c == '' || c == '\t') {
-        STATE = OUT;
+      if (c == ' ' || c == '\n' || c == '\t') {
+        if (counter > 0 && counter < 11) ++histogram[counter];
+        if (counter >= 11) ++histogram[11]; // If word had more than 10 letters
         counter = 0;
-        continue;
       }
-
-      while ((c = getchar()) != ' ' && != '\t' && '\n') {
+      else 
+      {
         if (c == EOF) break;
         ++counter;
       }
-    }
-
-    if (STATE = OUT) {
-
-    }
-
-    ++histogram[counter];
-    counter = 0;
   }
 
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 12; i++)
     printf("%d : %d\n", i, histogram[i]);
   return 0;
 }

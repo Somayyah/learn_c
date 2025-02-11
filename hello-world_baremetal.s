@@ -21,7 +21,7 @@ _start:
 // DATA Section - For initialized variables
 .section .data
 hello_world:
-	.asciz "Hello, World!\n"
+	.asciz "New text"
 
 // BSS Section - For uninitialized variables
 .section .bss 

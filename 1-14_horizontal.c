@@ -3,6 +3,9 @@
     of different characters in its input.
 */
 #include <stdio.h>
+
+#define REPEAT(___, _) for(char *__ = ___; *__; __++) putchar(_)
+
 int main()
 {
     int c = 0 ; 
@@ -13,11 +16,15 @@ int main()
         if (c >= ' ' && c <= '~') ++chars[c-' '];
     }
 
-    printf("\nCharacter\tFrequency\n");
+    printf("\nC : F\n");
     for (int i = 32; i < 127; i++)
     {
         if ( chars[i - ' '] > 0)
-            printf("%c\t%d\n", i, chars[i-' ']);
+        {
+            printf("%c : ", i);
+            for (int j = 0; j < chars[i-' ']; j++) putchar('*');
+            putchar('\n');
+        }
     }
     return 0;
 }

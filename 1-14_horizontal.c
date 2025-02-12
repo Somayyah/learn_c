@@ -10,13 +10,14 @@ int main()
 
     while ((c = getchar()) != EOF)
     {
-        if (c <= ' ' && c <= '~') ++chars[c-' '];
+        if (c >= ' ' && c <= '~') ++chars[c-' '];
     }
 
     printf("\nCharacter\tFrequency\n");
     for (int i = 32; i < 127; i++)
     {
-        printf("%c\t%d\n", i, chars[i-' ']);
+        if ( chars[i - ' '] > 0)
+            printf("%c\t%d\n", i, chars[i-' ']);
     }
     return 0;
 }

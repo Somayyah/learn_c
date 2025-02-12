@@ -6,29 +6,21 @@
 
 #include <stdio.h>
 
-#define IN 1
-#define OUT 0
-
 int main() {
 
   int c = 0;
-  int histogram[12] = {0};  // This ensures all elements are 0
+  int histogram[12] = {0};  
   int counter = 0;
-  int state = OUT;
-  c = getchar();
 
   while ((c = getchar()) != EOF) {
 
       if (c == ' ' || c == '\n' || c == '\t') {
-        if (state == OUT) continue;
-        state = OUT;
         if (counter > 0 && counter < 11) ++histogram[counter];
         if (counter >= 11) ++histogram[11];
         counter = 0;
       }
       else 
       {
-        state = IN;   
         ++counter;
       }
   }
@@ -38,7 +30,16 @@ int main() {
     else ++histogram[11];
   }
 
+  printf(" C : F\n");
   for (int i = 0; i < 12; i++)
-    printf("%d : %d\n", i, histogram[i]);
+  {
+    if (histogram[i] > 0)
+    {
+      printf("%2d : ", i);
+      for (int j = 0; j < histogram[i]; j++)
+        putchar('*');
+      putchar('\n');
+    }
+  }
   return 0;
 }

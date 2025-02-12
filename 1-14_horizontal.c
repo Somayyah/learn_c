@@ -4,7 +4,6 @@
 */
 #include <stdio.h>
 
-#define REPEAT(___, _) for(char *__ = ___; *__; __++) putchar(_)
 
 int main()
 {

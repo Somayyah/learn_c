@@ -1,27 +1,27 @@
 #include <stdio.h>
 
-double power(int i, int j);
+double power(int base, int exponent);
 
 int main()
 {
 
-    for (int i = -5; i < 10; ++i)
-        printf("%d %0.5lf %0.5lf\n", i, power(2,i), power(-3,i));
+    for (int base= -5; base< 10; ++base)
+        printf("%d %0.5lf %0.5lf\n", base, power(2,base), power(-3,base));
     return 0;
 }
 
-double power(int i, int j)
+double power(int base, int exponent)
 {
-    if (i == 0 && j < 0) return 0; //  Undefined treated as 0
-    if (j == 0) return 1; // By convention
+    if (base== 0 && exponent < 0) return 0; 
+    if (exponent == 0) return 1; 
 
     double res = 1.0;
 
-    int abs_exp = ( j > 0) ? j : -j;
+    int abs_exp = ( exponent > 0) ? exponent : -exponent;
     
     for ( ; abs_exp > 0 ; abs_exp--)
-        res = res * i;
+        res = res * base;
 
-    if (j < 0) return 1.0 / res;
+    if (exponent < 0) return 1.0 / res;
     return res;
 }

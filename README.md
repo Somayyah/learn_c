@@ -4,7 +4,7 @@ Following the book C Programming language 2nd edition by Brian W. Kernighan & De
 
 While solving each exercise I'll try to review it's dump and write my own assembly solution.
 
-## RE Solved Challenges:
+## RE For beginners (Dennis Yurichev) Solved Challenges:
 
 + http://challenges.re/48
 + http://challenges.re/49

@@ -4,3 +4,5 @@
 ### Done
 + hello-world.s
 + Cel-Feh.s
++ simple-loop.s
++ 

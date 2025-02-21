@@ -18,10 +18,12 @@ _start:
 
     # Print a Fahr and Cel for 0
     
-    mov     eax, 0          # fahr = 0
-    sub     eax, 32         # eax = fahr - 32 = 0 - 32 = -32
-    imul    eax, 5          # eax = (5.0) * eax
-    # cdq                   # extending the sign in case of negative numbers
+    mov     al, 0           # fahr = 0
+    sub     al, 32          # al = fahr - 32 = 0 - 32 = -32
+    mov     bl, 5           # to multiply by 5
+    imul    bl              # now AX = (5.0) * bl
+    # This works however since fahr is up to 300 then we need to use IMUL as below:
+    # F7 /5 IMUL r/m16 M Valid Valid DX:AX := AX ∗ r/m word.
     idiv    9               # eax = eax / 9
     mov     [res], eax      # store eax in res
 

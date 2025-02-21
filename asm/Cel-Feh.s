@@ -18,13 +18,13 @@ _start:
 
     # Print a Fahr and Cel for 0
     
-    mov     al, 0           # fahr = 0
-    sub     al, 32          # al = fahr - 32 = 0 - 32 = -32
-    mov     bl, 5           # to multiply by 5
-    imul    bl              # now AX = (5.0) * bl
-    # This works however since fahr is up to 300 then we need to use IMUL as below:
-    # F7 /5 IMUL r/m16 M Valid Valid DX:AX := AX ∗ r/m word.
-    idiv    9               # eax = eax / 9
+    mov     ax, 0           # fahr = 0
+    sub     ax, 32          # al = fahr - 32 = 0 - 32 = -32
+    mov     bx, 5           # to multiply by 5
+    imul    bx              # DX:AX = (5.0) * bx
+    mov     cx, 9
+    cwd
+    idiv    cx              # eax = eax / 9
     mov     [res], eax      # store eax in res
 
     # sys_exit call to exit from the program
@@ -47,4 +47,3 @@ _start:
 #      Printing formatted output (numbers and strings to stdout)
 #      Converting integers to ASCII for display
 #      Managing memory correctly (`.data` for initialized data, `.bss` for uninitialized)
-#      Understanding integer vs floating-point calculations

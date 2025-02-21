@@ -5,11 +5,10 @@
 
 .section .text
 _start:	
-
-	cmp counter, 4
-	jne print
-
+	jMP print
 	# sys_exit call to exit from the program
+
+exit_code:
 	mov rax, 60
 	mov rdi, 0
 	syscall
@@ -21,13 +20,14 @@ print:
 	lea rsi, [hello_world]
 	mov rdx, 14 
 	syscall
-	add counter, 1
-	jmp	_start
+	add byte ptr [counter], 1
+	cmp byte ptr [counter], 4
+	jle print
+	jmp exit_code
 
 .section .data
 hello_world:
 	.asciz "Hello, World!\n"
-counter:
-	db	0
+counter: .byte 0
 
 .section .bss

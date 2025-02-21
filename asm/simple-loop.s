@@ -5,7 +5,7 @@
 
 .section .text
 _start:	
-	jMP print
+	jmp print
 	# sys_exit call to exit from the program
 
 exit_code:

@@ -22,10 +22,10 @@ _start:
     sub     ax, 32          # al = fahr - 32 = 0 - 32 = -32
     mov     bx, 5           # to multiply by 5
     imul    bx              # DX:AX = (5.0) * bx
-    mov     cx, 9
-    cwd
-    idiv    cx              # eax = eax / 9
-    mov     [res], eax      # store eax in res
+    cwd                     # sign extention AX into DX:AX
+    mov     cx, 9           # to devide AX by 9
+    idiv    cx              # DX:AX = AX / 9 ; quotant in AX, reminder in DX
+    mov     [res], eax      # store quotant in res, will deal with the reminder later
 
     # sys_exit call to exit from the program
 	mov rax, 60

@@ -30,8 +30,19 @@ convert:
     mov     cx, 9                       # to devide AX by 9
     idiv    cx                          # DX:AX = AX / 9 ; quotant in AX, reminder in DX
     mov     [res], eax                  # store quotant in res, will deal with the reminder later
+    jmp     print_number
 
 print_number:
+    mov     cx, 10
+    idiv    cx
+    add     cx, 0x30
+    cdq
+    # sys_write
+    mov rdi, 1  # stdout
+    mov rax, 1  # sys_write syscall number
+    lea rsi, rcx  # Address of res
+    mov rdx, 1  # Write 1 byte
+    syscall
 
 exit:
     # sys_exit call to exit from the program
@@ -41,9 +52,10 @@ exit:
 
 .section .data
     header:     .asciz "C   :   F\n"
-    res:        .byte 0                 # Properly initialized memory
+    res:        .word 0                 # Properly initialized memory
     newline:    .byte 10                # ascii value for a newline
     fahr:       .byte 0                 
+
 .section .bss
 
 # What to learn

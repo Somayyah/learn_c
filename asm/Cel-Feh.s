@@ -21,8 +21,9 @@ _start:
     mov     eax, 0          # fahr = 0
     sub     eax, 32         # eax = fahr - 32 = 0 - 32 = -32
     imul    eax, 5          # eax = (5.0) * eax
-    idiv    9             # eax = eax / 9
-    mov     [res], eax       # store eax in res
+    # cdq                   # extending the sign in case of negative numbers
+    idiv    9               # eax = eax / 9
+    mov     [res], eax      # store eax in res
 
     # sys_exit call to exit from the program
 	mov rax, 60
@@ -45,4 +46,3 @@ _start:
 #      Converting integers to ASCII for display
 #      Managing memory correctly (`.data` for initialized data, `.bss` for uninitialized)
 #      Understanding integer vs floating-point calculations
-

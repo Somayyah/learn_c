@@ -7,11 +7,13 @@
 _start:
 
     # ex1 : 200 / 5 ( 0 - 255 ) 8 bit unsigned
-    mov ax, 200
-    mov bl, 5   # Can't use immediate value as we only use register or memory
-    div bl
-    mov byte ptr [ex1_q], al
-    mov byte ptr [ex1_r], ah
+    mov     ax, 200
+    mov     bl, 5   
+    div     bl
+    mov     byte ptr [ex1_q], al
+    mov     byte ptr [ex1_r], ah
+    jmp     store_number_on_stack
+
     # -100 / 25 ( )
 
     # 5000 / 100 ( )
@@ -27,11 +29,18 @@ _start:
     # -9223372036854775808 / 4294967296
 
     # sys_exit
-    mov rax, 60  # sys_exit syscall number
-    mov rdi, 0  # Exit code 0
+    mov     rax, 60  # sys_exit syscall number
+    mov     rdi, 0  # Exit code 0
     syscall
 
-print_number:
+store_number_on_stack:
+    mov     bl, 10
+    xor     dx, dx
+    div     bl
+    add     ah, 0x30
+    push    ah
+    cmp     al, 0
+    jne     print_number
 
 .section .data
 ex1_q:      .byte   0

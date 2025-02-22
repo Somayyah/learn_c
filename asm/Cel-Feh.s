@@ -9,7 +9,6 @@
 _start:
     
     # sys_write call to print "C    :   F"
-
 	mov     rax, 1
 	mov     rdi, 1	
 	lea     rsi, [header]
@@ -29,20 +28,24 @@ convert:
     cwd                                 # sign extention AX into DX:AX
     mov     cx, 9                       # to devide AX by 9
     idiv    cx                          # DX:AX = AX / 9 ; quotant in AX, reminder in DX
-    mov     [res], eax                  # store quotant in res, will deal with the reminder later
+    mov     [res], ax                   # store quotant in res, will deal with the reminder later
     jmp     print_number
 
 print_number:
-    mov     cx, 10
-    idiv    cx
-    add     cx, 0x30
-    cdq
+    idiv    ax                          # DX now should contain first digit
+    add     dx, 0x30                    # Convert digit to ascii
+    mov     [buffer], dx                # buffer now has the digit as ascii
+
     # sys_write
-    mov rdi, 1  # stdout
-    mov rax, 1  # sys_write syscall number
-    lea rsi, rcx  # Address of res
-    mov rdx, 1  # Write 1 byte
+    mov     rdi, 1                      
+    mov     rax, 1                      
+    lea     rsi, [buffer]                
+    mov     rdx, 1                      
     syscall
+
+    cmp     ax, 0
+    jne     print_number
+    jmp     exit
 
 exit:
     # sys_exit call to exit from the program
@@ -51,11 +54,11 @@ exit:
 	syscall
 
 .section .data
-    header:     .asciz "C   :   F\n"
-    res:        .word 0                 # Properly initialized memory
-    newline:    .byte 10                # ascii value for a newline
-    fahr:       .byte 0                 
-
+    header:     .asciz  "C   :   F\n"
+    res:        .word   0                 # Properly initialized memory
+    newline:    .byte   10                # ascii value for a newline
+    fahr:       .byte   0                 
+    buffer:     .byte   0
 .section .bss
 
 # What to learn

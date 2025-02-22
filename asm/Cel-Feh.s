@@ -59,12 +59,3 @@ exit:
     newline:    .byte   10                # ascii value for a newline
     fahr:       .byte   0                 
     buffer:     .byte   0
-.section .bss
-
-# What to learn
-#      Loops (iterating over Fahrenheit values from 0 to 300 in steps of 20) 
-#      Performing integer arithmetic (multiplication, division, and subtraction)
-#      Handling signed integers correctly (`idiv` and `cdq` for sign extension)
-#      Printing formatted output (numbers and strings to stdout)
-#      Converting integers to ASCII for display
-#      Managing memory correctly (`.data` for initialized data, `.bss` for uninitialized)

@@ -45,19 +45,21 @@ store_number_on_stack:
     jmp     print_int
 
 print_int:
-    mov rdi, 1  
-    mov rax, 1  
-    lea rsi, [rsp + 8] 
-    mov rdx, 1  
+    pop     word [buffer]
+    mov     rdi, 1  # stdout
+    mov     rax, 1  # sys_write syscall number
+    lea     rsi, [buffer]  # Address of res
+    mov     rdx, 2  # Write 1 byte
     syscall
     sub     byte ptr [iterator], 1
     cmp     byte ptr [iterator], 0
-    je      exit_code
     jne     print_int
-    
+    jmp     exit_code
 
 .section .data
 ex1_q:      .byte   0
 ex1_r:      .byte   0
 iterator:   .byte   0
+buffer:     .byte   2
+
 .section .bss

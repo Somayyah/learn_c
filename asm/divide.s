@@ -10,8 +10,6 @@ _start:
     mov     ax, 200
     mov     bl, 5   
     div     bl
-    mov     byte ptr [ex1_q], al
-    mov     byte ptr [ex1_r], ah
     jmp     store_number_on_stack
 
     # -100 / 25 ( )
@@ -34,15 +32,14 @@ _start:
     syscall
 
 store_number_on_stack:
+    xor     ah, ah
     mov     bl, 10
     xor     dx, dx
     div     bl
     add     ah, 0x30
     push    ah
     cmp     al, 0
-    jne     print_number
+    jne     store_number_on_stack
 
 .section .data
-ex1_q:      .byte   0
-ex1_r:      .byte   0
 .section .bss

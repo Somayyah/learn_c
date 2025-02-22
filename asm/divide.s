@@ -41,15 +41,15 @@ store_number_on_stack:
     push    ax
     add     byte ptr [iterator], 1
     cmp     al, 0
-    jne     store_number_on_stack
-    jmp     print_int
+    je      print_int          
+    jmp     store_number_on_stack 
 
 print_int:
     pop     word [buffer]
     mov     rdi, 1  # stdout
     mov     rax, 1  # sys_write syscall number
     lea     rsi, [buffer]  # Address of res
-    mov     rdx, 2  # Write 1 byte
+    mov     rdx, 2  # Write 2 byte
     syscall
     sub     byte ptr [iterator], 1
     cmp     byte ptr [iterator], 0

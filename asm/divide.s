@@ -6,9 +6,12 @@
 .section .text
 _start:
 
-    # 200 / 5 ( 0 - 255 )
-
-
+    # ex1 : 200 / 5 ( 0 - 255 ) 8 bit unsigned
+    mov ax, 200
+    mov bl, 5   # Can't use immediate value as we only use register or memory
+    div bl
+    mov byte ptr [ex1_q], al
+    mov byte ptr [ex1_r], ah
     # -100 / 25 ( )
 
     # 5000 / 100 ( )
@@ -31,5 +34,6 @@ _start:
 print_number:
 
 .section .data
-
+ex1_q:      .byte   0
+ex1_r:      .byte   0
 .section .bss

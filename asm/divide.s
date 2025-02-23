@@ -6,36 +6,42 @@
 .section .text
 _start:
     jmp     ex1
-    # ex1 : 200 / 5 ( 0 - 255 ) 8 bit unsigned
+
 ex1:
+    # 200 / 5 ( 0 - 255 ) 8 bit unsigned
     mov     ax, 200
     mov     bl, 5   
     div     bl
     jmp     store_number_on_stack
 
-    # ex2 : -100 / 25 ( )
 ex2:
-    
-    # sys_write (write '\n' to stdout)
+    # -100 / 25 ( )
     mov rdi, 1  # stdout
     mov rax, 1  # sys_write syscall number
     lea rsi, [newline]  # Address of newline
     mov rdx, 1  # Write 1 byte
     syscall
 
-    # ex3 : 5000 / 100 ( )
-
-    # ex4 : -32768 / 256 () 
-
-    # ex5 : 1000000 / 1234
-
-    # ex6 : -2147483648 / 65536
-
-    # ex7 : 100000000000 / 987654
-
-    # ex8 : -9223372036854775808 / 4294967296
-    jmp     exit_code
+ex3:
+    # 5000 / 100 ( )
     
+ex4:
+    # -32768 / 256 () 
+    
+ex5:
+    # 1000000 / 1234
+    
+ex6:
+    # -2147483648 / 65536
+    
+ex7:
+    # 100000000000 / 987654
+    
+ex8:
+    # -9223372036854775808 / 4294967296
+    
+    jmp     exit_code
+
 exit_code:
     # sys_exit
     mov     rax, 60  # sys_exit syscall number

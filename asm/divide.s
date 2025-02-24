@@ -5,22 +5,35 @@
 
 .section .text
 _start:
-    jmp     ex1
+    mov     byte ptr [sign], 0
+    jmp     ex2
 
 ex1:
-    # 200 / 5 ( 0 - 255 ) 8 bit unsigned
+    # 200 / 5 ( 0 -> 255 ) 8 bit unsigned, AX ÷ r/m8 = AL := Quotient, AH := Remainder
     mov     ax, 200
     mov     bl, 5   
     div     bl
     jmp     store_number_on_stack
 
 ex2:
-    # -100 / 25 ( )
-    mov rdi, 1  # stdout
-    mov rax, 1  # sys_write syscall number
-    lea rsi, [newline]  # Address of newline
-    mov rdx, 1  # Write 1 byte
+    # -100 / 25 ( -127 -> 127 ) 8 bit signed, AX ÷ r/m8 = AL := Quotient, AH := Remainder
+    mov     ax, -100
+    mov     bl, 25
+    idiv    bl  
+    test    al, al
+    jns     store_number_on_stack   # If not negative
+    mov     byte ptr [sign], 45
+    add     byte ptr [iterator], 1
+    neg     al
+    jmp     store_number_on_stack
+
+print_neg_sign:
+    mov     rdi, 1  # stdout
+    mov     rax, 1  # sys_write syscall number
+    lea     rsi, [sign]  # Address of newline
+    mov     rdx, 1  # Write 1 byte
     syscall
+    jmp     store_number_on_stack
 
 ex3:
     # 5000 / 100 ( )
@@ -57,8 +70,14 @@ store_number_on_stack:
     push    ax
     add     byte ptr [iterator], 1
     cmp     al, 0
-    je      print_int          
-    jmp     store_number_on_stack 
+    jne     store_number_on_stack
+    mov     rdi, 1  # stdout
+    mov     rax, 1  # sys_write syscall number
+    lea     rsi, [sign]  # Address of newline
+    mov     rdx, 1  # Write 1 byte
+    syscall
+    jmp     print_int
+
 
 print_int:
     pop     word ptr [buffer]
@@ -67,17 +86,16 @@ print_int:
     lea     rsi, [buffer]  # Address of res
     mov     rdx, 2  # Write 2 byte
     syscall
-
     sub     byte ptr [iterator], 1
     cmp     byte ptr [iterator], 0
     jne     print_int
-    jmp     ex2
 
 .section .data
-ex1_q:      .byte   0
-ex1_r:      .byte   0
+ex_q:       .byte   0
+ex_r:       .byte   0
 iterator:   .byte   0
 buffer:     .word   0
-newline: .byte 10 # ascii value for a newline
+newline:    .byte   10      # ascii value for a newline
+sign:       .byte    0
 
 .section .bss

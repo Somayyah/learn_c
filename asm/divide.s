@@ -80,6 +80,7 @@ ex8:
 store_number_on_stack:
     xor     ah, ah
     mov     bl, 10
+    xor     dx, dx
     div     bl
     add     ah, 0x30
     push    ax
@@ -114,6 +115,9 @@ cleanup:
     mov     byte ptr [iterator], 0
     mov     byte ptr [sign], 0
     mov     word ptr [buffer], 0
+    xor     rax, rax
+    xor     rbx, rbx
+    xor     rcx, rcx
     # print new line
     mov     rdi, 1  # stdout
     mov     rax, 1  # sys_write syscall number

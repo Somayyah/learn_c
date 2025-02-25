@@ -8,6 +8,19 @@ _start:
     call    ex1
     call    print_new_line
     call    ex2
+    call    print_new_line
+    call    ex3
+    call    print_new_line
+    call    ex4
+    call    print_new_line
+    call    ex5
+    call    print_new_line
+    call    ex6
+    call    print_new_line
+    call    ex7
+    call    print_new_line
+    call    ex8
+    call    print_new_line
     jmp     exit_code
 
 ex1:
@@ -33,7 +46,13 @@ ex2:
     ret
 
 ex3:
-    # 5000 / 100 ( )
+    # 5000 / 100 ( −32,768 -> +32,767) 16 bit signed, DX:AX ÷ r/m16 = AX := Quotient, DX := Reminder
+    mov     byte ptr [sign], 0
+    mov     eax, 5000
+    cwd
+    mov     bx, 100
+    div     bx
+    call    store_number_on_stack
     ret
     
 ex4:
@@ -55,7 +74,7 @@ ex7:
 ex8:
     # -9223372036854775808 / 4294967296
     ret
-    
+
 print_new_line:
     # print new line
     mov     rdi, 1  # stdout

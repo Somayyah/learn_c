@@ -32,15 +32,6 @@ ex2:
     call     store_number_on_stack
     ret
 
-print_neg_sign:
-    mov     rdi, 1      # stdout
-    mov     rax, 1  # sys_write syscall number
-    lea     rsi, [sign]  # Address of newline
-    mov     rdx, 1  # Write 1 byte
-    syscall
-    call     store_number_on_stack
-    ret
-
 ex3:
     # 5000 / 100 ( )
     ret
@@ -73,12 +64,15 @@ print_new_line:
     mov     rdx, 1  # Write 1 byte
     syscall
     ret
-    
-exit_code:
-    # sys_exit
-    mov     rax, 60  # sys_exit syscall number
-    mov     rdi, 0  # Exit code 0
+
+print_neg_sign:
+    mov     rdi, 1      # stdout
+    mov     rax, 1  # sys_write syscall number
+    lea     rsi, [sign]  # Address of newline
+    mov     rdx, 1  # Write 1 byte
     syscall
+    call     store_number_on_stack
+    ret
 
 store_number_on_stack:
     xor     ah, ah
@@ -110,9 +104,13 @@ print_int:
     jne     print_int
     ret
 
+exit_code:
+    # sys_exit
+    mov     rax, 60  # sys_exit syscall number
+    mov     rdi, 0  # Exit code 0
+    syscall
+
 .section .data
-ex_q:       .byte   0
-ex_r:       .byte   0
 iterator:   .byte   0
 buffer:     .word   0
 newline:    .byte   10      # ascii value for a newline

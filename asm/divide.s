@@ -36,9 +36,7 @@ ex2:
     mov     ax, -100
     mov     bl, 25
     idiv    bl  
-    test    al, al
-    jns     store_number_on_stack   # If not negative
-    mov     byte ptr [sign], 45
+    mov     word ptr [sign], 45
     neg     al
     call    store_number_on_stack
     ret
@@ -58,8 +56,6 @@ ex4:
     cwd
     mov     bx, 256
     idiv    bx
-    test    ax, ax
-    jns     store_number_on_stack   # If not negative
     mov     byte ptr [sign], 45
     neg     ax
     call    store_number_on_stack
@@ -90,13 +86,17 @@ store_number_on_stack:
     add     byte ptr [iterator], 1
     cmp     al, 0
     jne     store_number_on_stack
-    mov     rdi, 1  # stdout
-    mov     rax, 1  # sys_write syscall number
-    lea     rsi, [sign]  # Address of newline
-    mov     rdx, 1  # Write 1 byte
-    syscall
+    cmp     byte ptr [sign], 45
+    je      push_sign
     jmp     print_int
     ret
+
+push_sign:
+    xor     cx, cx
+    mov     cl, byte ptr [sign] 
+    add     byte ptr [iterator], 1
+    push    cx
+    jmp     print_int
 
 print_int:
     pop     word ptr [buffer]

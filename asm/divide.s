@@ -5,18 +5,23 @@
 
 .section .text
 _start:
-    mov     byte ptr [sign], 0
-    jmp     ex1
+    call    ex1
+    call    print_new_line
+    call    ex2
+    call    print_new_line
+    jmp     exit_code
 
 ex1:
     # 200 / 5 ( 0 -> 255 ) 8 bit unsigned, AX ÷ r/m8 = AL := Quotient, AH := Remainder
+    mov     byte ptr [sign], 0
     mov     ax, 200
     mov     bl, 5   
     div     bl
     jmp     store_number_on_stack
-
+    
 ex2:
     # -100 / 25 ( -127 -> 127 ) 8 bit signed, AX ÷ r/m8 = AL := Quotient, AH := Remainder
+    mov     byte ptr [sign], 0
     mov     ax, -100
     mov     bl, 25
     idiv    bl  
@@ -26,14 +31,16 @@ ex2:
     add     byte ptr [iterator], 1
     neg     al
     jmp     store_number_on_stack
+    ret
 
 print_neg_sign:
-    mov     rdi, 1  # stdout
+    mov     rdi, 1      # stdout
     mov     rax, 1  # sys_write syscall number
     lea     rsi, [sign]  # Address of newline
     mov     rdx, 1  # Write 1 byte
     syscall
     jmp     store_number_on_stack
+    ret
 
 ex3:
     # 5000 / 100 ( )
@@ -54,6 +61,15 @@ ex8:
     # -9223372036854775808 / 4294967296
     
     jmp     exit_code
+
+print_new_line:
+    # print new line
+    mov     rdi, 1  # stdout
+    mov     rax, 1  # sys_write syscall number
+    lea     rsi, [newline]  # Address of newline
+    mov     rdx, 1  # Write 1 byte
+    syscall
+    ret
 
 exit_code:
     # sys_exit
@@ -77,6 +93,7 @@ store_number_on_stack:
     mov     rdx, 1  # Write 1 byte
     syscall
     jmp     print_int
+    ret
 
 
 print_int:
@@ -89,6 +106,7 @@ print_int:
     sub     byte ptr [iterator], 1
     cmp     byte ptr [iterator], 0
     jne     print_int
+    ret
 
 .section .data
 ex_q:       .byte   0

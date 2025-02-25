@@ -6,7 +6,7 @@
 .section .text
 _start:
     mov     byte ptr [sign], 0
-    jmp     ex2
+    jmp     ex1
 
 ex1:
     # 200 / 5 ( 0 -> 255 ) 8 bit unsigned, AX ÷ r/m8 = AL := Quotient, AH := Remainder

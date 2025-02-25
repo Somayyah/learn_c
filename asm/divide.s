@@ -6,35 +6,33 @@
 .section .text
 _start:
     call    ex1
-    call    print_new_line
+    call    cleanup
     call    ex2
-    call    print_new_line
+    call    cleanup
     call    ex3
-    call    print_new_line
+    call    cleanup
     call    ex4
-    call    print_new_line
+    call    cleanup
     call    ex5
-    call    print_new_line
+    call    cleanup
     call    ex6
-    call    print_new_line
+    call    cleanup
     call    ex7
-    call    print_new_line
+    call    cleanup
     call    ex8
-    call    print_new_line
+    call    cleanup
     jmp     exit_code
 
 ex1:
     # 200 / 5 ( 0 -> 255 ) 8 bit unsigned, AX ÷ r/m8 = AL := Quotient, AH := Remainder
-    mov     byte ptr [sign], 0
     mov     ax, 200
     mov     bl, 5   
     div     bl
-    call     store_number_on_stack
+    call    store_number_on_stack
     ret
 
 ex2:
     # -100 / 25 ( -127 -> 127 ) 8 bit signed, AX ÷ r/m8 = AL := Quotient, AH := Remainder
-    mov     byte ptr [sign], 0
     mov     ax, -100
     mov     bl, 25
     idiv    bl  
@@ -42,12 +40,11 @@ ex2:
     jns     store_number_on_stack   # If not negative
     mov     byte ptr [sign], 45
     neg     al
-    call     store_number_on_stack
+    call    store_number_on_stack
     ret
 
 ex3:
-    # 5000 / 100 ( −32,768 -> +32,767) 16 bit signed, DX:AX ÷ r/m16 = AX := Quotient, DX := Reminder
-    mov     byte ptr [sign], 0
+    # 5000 / 100 ( −32,768 -> +32,767 ) 16 bit signed, DX:AX ÷ r/m16 = AX := Quotient, DX := Reminder
     mov     eax, 5000
     cwd
     mov     bx, 100
@@ -56,7 +53,16 @@ ex3:
     ret
     
 ex4:
-    # -32768 / 256 () 
+    # -32768 / 256 ( −32,768 -> +32,767 ) 16 bit signed, DX:AX ÷ r/m16 = AX := Quotient, DX := Reminder
+    mov     eax, -32768
+    cwd
+    mov     bx, 256
+    idiv    bx
+    test    ax, ax
+    jns     store_number_on_stack   # If not negative
+    mov     byte ptr [sign], 45
+    neg     ax
+    call    store_number_on_stack
     ret
     
 ex5:
@@ -75,28 +81,9 @@ ex8:
     # -9223372036854775808 / 4294967296
     ret
 
-print_new_line:
-    # print new line
-    mov     rdi, 1  # stdout
-    mov     rax, 1  # sys_write syscall number
-    lea     rsi, [newline]  # Address of newline
-    mov     rdx, 1  # Write 1 byte
-    syscall
-    ret
-
-print_neg_sign:
-    mov     rdi, 1      # stdout
-    mov     rax, 1  # sys_write syscall number
-    lea     rsi, [sign]  # Address of newline
-    mov     rdx, 1  # Write 1 byte
-    syscall
-    call     store_number_on_stack
-    ret
-
 store_number_on_stack:
     xor     ah, ah
     mov     bl, 10
-    xor     dx, dx
     div     bl
     add     ah, 0x30
     push    ax
@@ -121,6 +108,18 @@ print_int:
     sub     byte ptr [iterator], 1
     cmp     byte ptr [iterator], 0
     jne     print_int
+    ret
+
+cleanup:
+    mov     byte ptr [iterator], 0
+    mov     byte ptr [sign], 0
+    mov     word ptr [buffer], 0
+    # print new line
+    mov     rdi, 1  # stdout
+    mov     rax, 1  # sys_write syscall number
+    lea     rsi, [newline]  # Address of newline
+    mov     rdx, 1  # Write 1 byte
+    syscall
     ret
 
 exit_code:

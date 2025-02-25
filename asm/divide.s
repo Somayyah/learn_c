@@ -8,7 +8,6 @@ _start:
     call    ex1
     call    print_new_line
     call    ex2
-    call    print_new_line
     jmp     exit_code
 
 ex1:
@@ -17,8 +16,9 @@ ex1:
     mov     ax, 200
     mov     bl, 5   
     div     bl
-    jmp     store_number_on_stack
-    
+    call     store_number_on_stack
+    ret
+
 ex2:
     # -100 / 25 ( -127 -> 127 ) 8 bit signed, AX ÷ r/m8 = AL := Quotient, AH := Remainder
     mov     byte ptr [sign], 0
@@ -28,9 +28,8 @@ ex2:
     test    al, al
     jns     store_number_on_stack   # If not negative
     mov     byte ptr [sign], 45
-    add     byte ptr [iterator], 1
     neg     al
-    jmp     store_number_on_stack
+    call     store_number_on_stack
     ret
 
 print_neg_sign:
@@ -39,29 +38,33 @@ print_neg_sign:
     lea     rsi, [sign]  # Address of newline
     mov     rdx, 1  # Write 1 byte
     syscall
-    jmp     store_number_on_stack
+    call     store_number_on_stack
     ret
 
 ex3:
     # 5000 / 100 ( )
+    ret
     
 ex4:
     # -32768 / 256 () 
+    ret
     
 ex5:
     # 1000000 / 1234
+    ret
     
 ex6:
     # -2147483648 / 65536
+    ret
     
 ex7:
     # 100000000000 / 987654
+    ret
     
 ex8:
     # -9223372036854775808 / 4294967296
+    ret
     
-    jmp     exit_code
-
 print_new_line:
     # print new line
     mov     rdi, 1  # stdout
@@ -70,7 +73,7 @@ print_new_line:
     mov     rdx, 1  # Write 1 byte
     syscall
     ret
-
+    
 exit_code:
     # sys_exit
     mov     rax, 60  # sys_exit syscall number
@@ -94,7 +97,6 @@ store_number_on_stack:
     syscall
     jmp     print_int
     ret
-
 
 print_int:
     pop     word ptr [buffer]

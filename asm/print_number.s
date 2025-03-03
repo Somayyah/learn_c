@@ -1,4 +1,5 @@
 # Focus on printing numbers regardless of size and sign
+
 .intel_syntax noprefix
 .global _start
 
@@ -16,4 +17,3 @@ print_int:
 
 .section .data
 buffer      .byte   0
-    

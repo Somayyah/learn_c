@@ -1,6 +1,6 @@
 # 🛠 **x86/x86-64 Assembly Cheat Sheet**  
 
-### **📌 1. General-Purpose Registers**
+### ** 1. General-Purpose Registers**
 #### **x86 (32-bit) Registers**  
 | Register | Purpose |
 |----------|---------|

@@ -3,6 +3,14 @@
     
 # For each operation, print the quotient and remainder.
 
+.section .data
+iterator:   .byte   0
+buffer:     .word   0
+newline:    .byte   10      # ascii value for a newline
+sign:       .byte    0
+
+.section .bss
+
 .section .text
 _start:
     call    ex1
@@ -131,11 +139,3 @@ exit_code:
     mov     rax, 60  # sys_exit syscall number
     mov     rdi, 0  # Exit code 0
     syscall
-
-.section .data
-iterator:   .byte   0
-buffer:     .word   0
-newline:    .byte   10      # ascii value for a newline
-sign:       .byte    0
-
-.section .bss

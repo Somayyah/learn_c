@@ -66,6 +66,7 @@ ex4:
     idiv    bx
     mov     byte ptr [sign], 45
     neg     eax		# eax = 128
+	cwd
     call    store_number_on_stack
     ret
     
@@ -86,12 +87,12 @@ ex8:
     ret
 
 store_number_on_stack:   # eax ÷ 10 = 128 ÷ 10	( −32,768 -> +32,767 ) 16 bit signed, DX:AX ÷ r/m16 = AX := Quotient, DX := Reminder
-    xor     ah, ah
+	xor     ah, ah
     mov     bl, 10
-    xor     dx, dx
     div     bl
     add     ah, 0x30
-    push    ax
+	movzx 	ecx, ah    
+	push 	cx 
     add     byte ptr [iterator], 1
     cmp     al, 0
     jne     store_number_on_stack

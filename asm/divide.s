@@ -85,7 +85,7 @@ ex8:
     # -9223372036854775808 / 4294967296
     ret
 
-store_number_on_stack:   # -128 / 10
+store_number_on_stack:   # eax ÷ 10 = 128 ÷ 10	( −32,768 -> +32,767 ) 16 bit signed, DX:AX ÷ r/m16 = AX := Quotient, DX := Reminder
     xor     ah, ah
     mov     bl, 10
     xor     dx, dx

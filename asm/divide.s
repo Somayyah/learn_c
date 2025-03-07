@@ -65,7 +65,7 @@ ex4:
     mov     bx, 256
     idiv    bx
     mov     byte ptr [sign], 45
-    neg     ax
+    neg     eax		# eax = 128
     call    store_number_on_stack
     ret
     
@@ -85,7 +85,7 @@ ex8:
     # -9223372036854775808 / 4294967296
     ret
 
-store_number_on_stack:
+store_number_on_stack:   # -128 / 10
     xor     ah, ah
     mov     bl, 10
     xor     dx, dx

@@ -61,7 +61,6 @@ ex3:
 ex4:
     # -32768 / 256 ( −32,768 -> +32,767 ) 16 bit signed, DX:AX ÷ r/m16 = AX := Quotient, DX := Reminder
     mov     eax, -32768
-    cwd
     mov     bx, 256
     idiv    bx
     mov     byte ptr [sign], 45
@@ -71,9 +70,14 @@ ex4:
     ret
     
 ex5:
-    # 1000000 / 1234
+    # 1000000 / 1234 (Dividend requires 20 bits ) 32 bits unsigned, EDX:EAX ÷ r/m32 = AX := Quotient, DX := Remainder
+    mov     eax, 1000000   
+    mov     edx, 0
+    mov     ebx, 1234
+    div     ebx 
+    call    store_number_on_stack
     ret
-    
+	
 ex6:
     # -2147483648 / 65536
     ret

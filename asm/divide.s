@@ -71,7 +71,7 @@ ex4:
     
 ex5:
     # 1000000 / 1234 (Dividend requires 20 bits) 32 bits unsigned, EDX:EAX ÷ r/m32 = EAX := Quotient, EDX := Remainder
-
+	# Answer is 810
     mov     eax, 1000000   
     mov     edx, 0
     mov     ebx, 1234
@@ -92,6 +92,11 @@ ex8:
     ret
 
 store_number_on_stack:   
+	test	eax, 0xFFFF0000
+	jz		store_16_bit_on_stack
+	jmp		store_32_bit_on_stack
+
+store_16_bit_on_stack:
 	xor     ah, ah
     mov     bl, 10
     div     bl
@@ -100,7 +105,25 @@ store_number_on_stack:
 	push 	cx 
     add     byte ptr [iterator], 1
     cmp     al, 0
-    jne     store_number_on_stack
+    jne     store_16_bit_on_stack
+	jmp		after_storing
+	ret
+
+store_32_bit_on_stack: 
+	# EDX:EAX ÷ r/m32 = EAX := Quotient, EDX := Remainder
+	xor     edx, edx
+    mov     ecx, 10
+    div     ecx
+    add     ax, 0x30
+	movzx 	ecx, ah    
+	push 	cx 
+    add     byte ptr [iterator], 1
+    cmp     al, 0
+    jne     store_32_bit_on_stack
+	jmp		after_storing
+	ret
+
+after_storing:
     cmp     byte ptr [sign], 45
     je      push_sign
     jmp     print_int

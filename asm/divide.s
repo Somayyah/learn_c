@@ -70,7 +70,8 @@ ex4:
     ret
     
 ex5:
-    # 1000000 / 1234 (Dividend requires 20 bits ) 32 bits unsigned, EDX:EAX ÷ r/m32 = AX := Quotient, DX := Remainder
+    # 1000000 / 1234 (Dividend requires 20 bits) 32 bits unsigned, EDX:EAX ÷ r/m32 = EAX := Quotient, EDX := Remainder
+
     mov     eax, 1000000   
     mov     edx, 0
     mov     ebx, 1234
@@ -128,15 +129,14 @@ cleanup:
     mov     byte ptr [iterator], 0
     mov     byte ptr [sign], 0
     mov     word ptr [buffer], 0
-    xor     rax, rax
-    xor     rbx, rbx
-    xor     rcx, rcx
-    # print new line
-    mov     rdi, 1  # stdout
+    mov     rdi, 1
     mov     rax, 1  # sys_write syscall number
     lea     rsi, [newline]  # Address of newline
     mov     rdx, 1  # Write 1 byte
     syscall
+	xor     rax, rax
+    xor     rbx, rbx
+    xor     rcx, rcx
     ret
 
 exit_code:

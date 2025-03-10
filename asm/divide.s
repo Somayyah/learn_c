@@ -86,6 +86,7 @@ ex6:
 	cdq
 	mov	    ebx, 65536
 	idiv	ebx
+	mov     byte ptr [sign], 45
 	neg		eax
 	call	store_number_on_stack
     ret
@@ -106,6 +107,7 @@ ex8:
 	cdq
 	mov		rbx, 4294967296
 	div		rbx
+	mov     byte ptr [sign], 45
 	neg		rax
 	call 	store_number_on_stack
     ret

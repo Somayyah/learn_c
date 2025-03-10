@@ -116,7 +116,6 @@ store_32_bit_on_stack:
     mov     ecx, 10
     div     ecx
     add     dx, 0x30
-	# movzx 	ecx, ed    
 	push 	dx 
     add     byte ptr [iterator], 1
     cmp     eax, 0

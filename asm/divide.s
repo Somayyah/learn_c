@@ -60,18 +60,19 @@ ex3:
     
 ex4:
     # -32768 / 256 ( −32,768 -> +32,767 ) 16 bit signed, DX:AX ÷ r/m16 = AX := Quotient, DX := Reminder
-    mov     eax, -32768
+    mov     ax, -32768
+	cwd
     mov     bx, 256
     idiv    bx
     mov     byte ptr [sign], 45
-    neg     eax		# eax = 128
+    neg     ax		# ax = 128
 	cwd
     call    store_number_on_stack
     ret
     
 ex5:
     # 1000000 / 1234 (Dividend requires 20 bits) 32 bits unsigned, EDX:EAX ÷ r/m32 = EAX := Quotient, EDX := Remainder
-	# Answer is 810
+	# Answer is 810 = 0x32a
     mov     eax, 1000000   
     mov     edx, 0
     mov     ebx, 1234
@@ -92,7 +93,7 @@ ex8:
     ret
 
 store_number_on_stack:   
-	test	eax, 0xFFFF0000
+	test  	eax, 0xFFFFFF00
 	jz		store_16_bit_on_stack
 	jmp		store_32_bit_on_stack
 
@@ -114,11 +115,11 @@ store_32_bit_on_stack:
 	xor     edx, edx
     mov     ecx, 10
     div     ecx
-    add     ax, 0x30
-	movzx 	ecx, ah    
-	push 	cx 
+    add     dx, 0x30
+	# movzx 	ecx, ed    
+	push 	dx 
     add     byte ptr [iterator], 1
-    cmp     al, 0
+    cmp     eax, 0
     jne     store_32_bit_on_stack
 	jmp		after_storing
 	ret

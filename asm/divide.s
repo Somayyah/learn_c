@@ -91,7 +91,13 @@ ex6:
     ret
     
 ex7:
-    # 100000000000 / 987654
+    # 100000000000 / 987654 Unsigned divide RDX:RAX ÷ r/m64 = RAX := Quotient, RDX := Remainder
+	# 101250 = 18B82
+	mov		rax, 100000000000
+	xor		rdx, RDX
+	mov		rbx, 987654
+	div		rbx
+	call 	store_number_on_stack
     ret
     
 ex8:

@@ -4,10 +4,10 @@
 # For each operation, print the quotient
 
 .section .data
-iterator:   .byte   0		# How many digits to print
+iterator:   .byte   1		# How many digits to print
 buffer:     .word   0
 newline:    .byte   10      # ascii value for a newline
-sign:       .byte   43
+sign:       .word   43
 
 .section .bss
 
@@ -145,17 +145,14 @@ store_16_bit_on_stack:
 	ret
 	
 after_storing:
-    cmp     byte ptr [sign], 45
-    je      push_sign
-    jmp     print_int
+    call	push_sign
+    call    print_int
+	call	print_newline
     ret
 
 push_sign:
-    xor     cx, cx
-    mov     cl, byte ptr [sign] 
-    add     byte ptr [iterator], 1
-    push    cx
-    jmp     print_int
+    push	word ptr [sign] 
+    ret
 
 print_int:
     pop     word ptr [buffer]
@@ -169,15 +166,17 @@ print_int:
     jne     print_int
     ret
 
-cleanup:
-    mov     byte ptr [iterator], 0
-    mov     byte ptr [sign], 0
-    mov     word ptr [buffer], 0
+print_newline:
     mov     rdi, 1
     mov     rax, 1
     lea     rsi, [newline]  
     mov     rdx, 1
     syscall
+
+cleanup:
+    mov     byte ptr [iterator], 1
+    mov     byte ptr [sign], 0
+    mov     word ptr [buffer], 0
 	xor     rax, rax
     xor     rbx, rbx
     xor     rcx, rcx

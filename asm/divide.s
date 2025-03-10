@@ -4,10 +4,10 @@
 # For each operation, print the quotient and remainder.
 
 .section .data
-iterator:   .byte   0
+iterator:   .byte   0		# How many digits to print
 buffer:     .word   0
 newline:    .byte   10      # ascii value for a newline
-sign:       .byte    0
+sign:       .byte   43
 
 .section .bss
 
@@ -81,7 +81,13 @@ ex5:
     ret
 	
 ex6:
-    # -2147483648 / 65536
+    # -2147483648 / 65536 Signed divide EDX:EAX ÷ r/m32 = EAX := Quotient, EDX := Remainder
+	mov		eax,-2147483648
+	cdq
+	mov	    ebx, 65536
+	idiv	ebx
+	neg		eax
+	call	store_number_on_stack
     ret
     
 ex7:
@@ -94,10 +100,13 @@ ex8:
 
 store_number_on_stack:   
 	test  	eax, 0xFFFFFF00
-	jz		store_16_bit_on_stack
-	jmp		store_32_bit_on_stack
+	jz		store_8_bit_on_stack
+	# test  	eax, 0xFFFF0000
+	# jz		store_32_bit_on_stack
+	jmp		store_16_bit_on_stack
 
-store_16_bit_on_stack:
+store_8_bit_on_stack:
+	# DX:AX ÷ r/m16 = AX := Quotient, DX := Remainder	
 	xor     ah, ah
     mov     bl, 10
     div     bl
@@ -106,11 +115,11 @@ store_16_bit_on_stack:
 	push 	cx 
     add     byte ptr [iterator], 1
     cmp     al, 0
-    jne     store_16_bit_on_stack
+    jne     store_8_bit_on_stack
 	jmp		after_storing
 	ret
 
-store_32_bit_on_stack: 
+store_16_bit_on_stack: 
 	# EDX:EAX ÷ r/m32 = EAX := Quotient, EDX := Remainder
 	xor     edx, edx
     mov     ecx, 10
@@ -119,10 +128,10 @@ store_32_bit_on_stack:
 	push 	dx 
     add     byte ptr [iterator], 1
     cmp     eax, 0
-    jne     store_32_bit_on_stack
+    jne     store_16_bit_on_stack
 	jmp		after_storing
 	ret
-
+	
 after_storing:
     cmp     byte ptr [sign], 45
     je      push_sign
@@ -138,10 +147,10 @@ push_sign:
 
 print_int:
     pop     word ptr [buffer]
-    mov     rdi, 1  # stdout
-    mov     rax, 1  # sys_write syscall number
-    lea     rsi, [buffer]  # Address of res
-    mov     rdx, 2  # Write 2 byte
+    mov     rdi, 1
+    mov     rax, 1
+    lea     rsi, [buffer]
+    mov     rdx, 2
     syscall
     sub     byte ptr [iterator], 1
     cmp     byte ptr [iterator], 0
@@ -153,9 +162,9 @@ cleanup:
     mov     byte ptr [sign], 0
     mov     word ptr [buffer], 0
     mov     rdi, 1
-    mov     rax, 1  # sys_write syscall number
-    lea     rsi, [newline]  # Address of newline
-    mov     rdx, 1  # Write 1 byte
+    mov     rax, 1
+    lea     rsi, [newline]  
+    mov     rdx, 1
     syscall
 	xor     rax, rax
     xor     rbx, rbx
@@ -163,7 +172,6 @@ cleanup:
     ret
 
 exit_code:
-    # sys_exit
-    mov     rax, 60  # sys_exit syscall number
-    mov     rdi, 0  # Exit code 0
+    mov     rax, 60
+    mov     rdi, 0 
     syscall

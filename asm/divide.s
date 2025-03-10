@@ -1,7 +1,7 @@
 .intel_syntax noprefix
 .global _start
     
-# For each operation, print the quotient and remainder.
+# For each operation, print the quotient
 
 .section .data
 iterator:   .byte   0		# How many digits to print
@@ -101,14 +101,18 @@ ex7:
     ret
     
 ex8:
-    # -9223372036854775808 / 4294967296
+    # -9223372036854775808 / 4294967296 signed divide RDX:RAX ÷ r/m64 = RAX := Quotient, RDX := Remainder
+	mov		rax, -9223372036854775808
+	cdq
+	mov		rbx, 4294967296
+	div		rbx
+	neg		rax
+	call 	store_number_on_stack
     ret
 
 store_number_on_stack:   
 	test  	eax, 0xFFFFFF00
 	jz		store_8_bit_on_stack
-	# test  	eax, 0xFFFF0000
-	# jz		store_32_bit_on_stack
 	jmp		store_16_bit_on_stack
 
 store_8_bit_on_stack:

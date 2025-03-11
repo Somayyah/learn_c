@@ -7,7 +7,7 @@
 iterator:   .byte   1		# How many digits to print
 buffer:     .word   0
 newline:    .byte   10      # ascii value for a newline
-sign:       .word   43
+sign:       .byte   43
 
 .section .bss
 
@@ -151,9 +151,12 @@ after_storing:
     ret
 
 push_sign:
-    push	word ptr [sign] 
+    xor     ecx, ecx 
+    mov     cl, byte ptr [sign] 
+    sub     rsp, 8
+    mov     [rsp], cx
     ret
-
+	
 print_int:
     pop     word ptr [buffer]
     mov     rdi, 1

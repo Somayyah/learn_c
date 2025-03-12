@@ -6,21 +6,13 @@
 .section .text
 _start:
     call    ex1
-    call    cleanup
     call    ex2
-    call    cleanup
     call    ex3
-    call    cleanup
     call    ex4
-    call    cleanup
     call    ex5
-    call    cleanup
     call    ex6
-    call    cleanup
     call    ex7
-    call    cleanup
     call    ex8
-    call    cleanup
     jmp     exit_code
 
 ex1:
@@ -163,15 +155,6 @@ print_newline:
     syscall
 	ret
 
-cleanup:
-    mov     byte ptr [iterator], 0
-    mov     word ptr [sign], 43
-    mov     word ptr [buffer], 0
-	xor     rax, rax
-    xor     rbx, rbx
-    xor     rcx, rcx
-    ret
-
 exit_code:
     mov     rax, 60
     mov     rdi, 0 
@@ -182,5 +165,4 @@ iterator:   .byte   0		# How many digits to print
 buffer:     .word   0
 newline:    .byte   10      # ascii value for a newline
 sign:       .byte   43   # for sign '+'
-
 

@@ -3,14 +3,6 @@
     
 # For each operation, print the quotient
 
-.section .data
-iterator:   .byte   1		# How many digits to print
-buffer:     .word   0
-newline:    .byte   10      # ascii value for a newline
-sign:       .word   43
-
-.section .bss
-
 .section .text
 _start:
     call    ex1
@@ -145,18 +137,20 @@ store_16_bit_on_stack:
 	ret
 	
 after_storing:
-    call	print_sign
+    call	push_sign
     call    print_int
 	call	print_newline
     ret
 
-print_sign:
-    mov     rdi, 1
-    mov     rax, 1
-    lea     rsi, [sign]  
-    mov     rdx, 2
-    syscall
-	ret
+push_sign:
+    push    bp
+    mov     bp, sp
+    xor     cx, cx
+    mov     cx, word ptr [sign]
+    push    cx 
+    mov     sp, bp
+    pop     bp
+    ret	
 	
 print_int:
     pop     word ptr [buffer]
@@ -179,7 +173,7 @@ print_newline:
 
 cleanup:
     mov     byte ptr [iterator], 1
-    mov     byte ptr [sign], 0
+    mov     word ptr [sign], 43
     mov     word ptr [buffer], 0
 	xor     rax, rax
     xor     rbx, rbx
@@ -190,3 +184,9 @@ exit_code:
     mov     rax, 60
     mov     rdi, 0 
     syscall
+
+.section .data
+iterator:   .byte   1		# How many digits to print
+buffer:     .word   0
+newline:    .byte   10      # ascii value for a newline
+sign:       .word   43

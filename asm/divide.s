@@ -36,7 +36,7 @@ ex2:
     mov     ax, -100
     mov     bl, 25
     idiv    bl  
-    mov     word ptr [sign], 45
+    mov     byte ptr [sign], 45
     neg     al
     call    store_number_on_stack
     ret
@@ -104,13 +104,12 @@ ex8:
 	call 	store_number_on_stack
     ret
 
-store_number_on_stack:   
+store_number_on_stack:
 	test  	eax, 0xFFFFFF00
 	jz		store_8_bit_on_stack
 	jmp		store_16_bit_on_stack
 
 store_8_bit_on_stack:
-	# DX:AX ÷ r/m16 = AX := Quotient, DX := Remainder	
 	xor     ah, ah
     mov     bl, 10
     div     bl
@@ -120,11 +119,11 @@ store_8_bit_on_stack:
     add     byte ptr [iterator], 1
     cmp     al, 0
     jne     store_8_bit_on_stack
-	jmp		after_storing
+	call	print_sign
+	jmp		print_int
 	ret
 
 store_16_bit_on_stack: 
-	# EDX:EAX ÷ r/m32 = EAX := Quotient, EDX := Remainder
 	xor     edx, edx
     mov     ecx, 10
     div     ecx
@@ -133,23 +132,16 @@ store_16_bit_on_stack:
     add     byte ptr [iterator], 1
     cmp     eax, 0
     jne     store_16_bit_on_stack
-	jmp		after_storing
-	ret
-	
-after_storing:
-    call	push_sign
-    call    print_int
-	call	print_newline
-    ret
+	call	print_sign
+	jmp		print_int
+	ret	
 
-push_sign:
-    push    bp
-    mov     bp, sp
-    xor     cx, cx
-    mov     cx, word ptr [sign]
-    push    cx 
-    mov     sp, bp
-    pop     bp
+print_sign:
+	mov     rdi, 1
+    mov     rax, 1
+    lea     rsi, [sign]  
+    mov     rdx, 2
+    syscall
     ret	
 	
 print_int:
@@ -162,17 +154,17 @@ print_int:
     sub     byte ptr [iterator], 1
     cmp     byte ptr [iterator], 0
     jne     print_int
-    ret
-
+	
 print_newline:
     mov     rdi, 1
     mov     rax, 1
     lea     rsi, [newline]  
     mov     rdx, 1
     syscall
+	ret
 
 cleanup:
-    mov     byte ptr [iterator], 1
+    mov     byte ptr [iterator], 0
     mov     word ptr [sign], 43
     mov     word ptr [buffer], 0
 	xor     rax, rax
@@ -186,7 +178,9 @@ exit_code:
     syscall
 
 .section .data
-iterator:   .byte   1		# How many digits to print
+iterator:   .byte   0		# How many digits to print
 buffer:     .word   0
 newline:    .byte   10      # ascii value for a newline
-sign:       .word   43
+sign:       .byte   43   # for sign '+'
+
+

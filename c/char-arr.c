@@ -5,6 +5,9 @@ int main()
 	int char[100] = "";
 	int c = 0;
 	
-	for (int )
+	for ((c = getchar()))
+	{
+		
+	}
 	return 0;
 }

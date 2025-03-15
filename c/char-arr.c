@@ -8,7 +8,7 @@ int main()
 	int c = 0;
 	int length = 0;
 	
-	for ((c = getchar()))
+	while ((c = getchar()) != EOF )
 	{
 		
 	}

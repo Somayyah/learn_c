@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-int getline(int length, char longest_line[]);
+char getline(int length, char longest_line[]);
+int copy();
 
 int main()
 {
@@ -19,4 +20,9 @@ char getline(int length, char longest_line[])
 		
 	}
 	return 0;
+}
+
+int copy()
+{
+	
 }

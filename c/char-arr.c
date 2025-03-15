@@ -1,19 +1,21 @@
 #include <stdio.h>
 
-char getline(int length, char longest_line[]);
+int getline(int MAXLength, char longest_line[]);
 int copy();
+
+#define MAXLength 1000
 
 int main()
 {
-	char longest_line[100] = "";
-	int c = 0;
+	char longest_line[MAXLength] = "";
+	char line[MAXLength] = "";
 	int length = 0;
-	longest_line = getline(int length, char longest_line[]);
-	
+	int MAXlen = 0;
+	getline(MAXLength, line);
 	return 0;
 }
 
-char getline(int length, char longest_line[])
+int getline(int MAXLength, char longest_line[])
 {
 	while ((c = getchar()) != EOF )
 	{

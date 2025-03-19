@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int getline(int MAXLength, char longest_line[]);
+int getline(char line[]);
 int copy();
 
 #define MAXLength 1000
@@ -13,12 +13,15 @@ int main()
 	int MAXlen = 0;
 	while(fgets(line, MAXLength, stdin) != NULL)
 	{
-		
+		length = getline(line);
+		if (length >= MAXlen)
+			MAXlen = length;
+		longest_line = line;
 	}
 	return 0;
 }
 
-int getline(int MAXLength, char longest_line[])
+int getline(char line[])
 {
 	
 }

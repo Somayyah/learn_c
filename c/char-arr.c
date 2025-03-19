@@ -1,7 +1,5 @@
 #include <stdio.h>
 
-// C language doesn't support strings as a datatype
-
 int getline(int MAXLength, char longest_line[]);
 int copy();
 
@@ -13,17 +11,16 @@ int main()
 	char line[MAXLength] = "";
 	int length = 0;
 	int MAXlen = 0;
-	getline(MAXLength, line);
+	while(fgets(line, MAXLength, stdin) != NULL)
+	{
+		
+	}
 	return 0;
 }
 
 int getline(int MAXLength, char longest_line[])
 {
-	while ((c = getchar()) != EOF )
-	{
-		
-	}
-	return 0;
+	
 }
 
 int copy()

@@ -29,7 +29,7 @@ int main()
 
 int updateline(char line[], int len)
 {
-	// line[0] = '\0';  
+	line[0] = '\0';  
 	int c = ' ';
 	int counter = 0;
 	while ((c = getchar()) != EOF)
@@ -57,7 +57,7 @@ int lineLen(char line[])
 
 int copy(char line[], char longest_line[])
 {
-	// longest_line[0] = '\0';
+	longest_line[0] = '\0';
 	int counter = 0;
 	while((longest_line[counter] = line[counter]) != '\0')
 		counter++;

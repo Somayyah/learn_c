@@ -19,12 +19,8 @@ int main()
 			copy(line, longest_line);
 		}
 	}
-	if (MAXlen == 0) 
-	{
-		printf("Empty output\n");
-		return 0;
-	}
-	printf("\nLongest Line: %s\nLength: %d\n", longest_line, MAXlen);
+	if (MAXlen > 0) 
+		printf("\nLongest Line: %s\nLength: %d\n", longest_line, MAXlen);
 	return 0;
 }
 
@@ -33,7 +29,7 @@ int updateline(char line[], int len)
 	clearLine(line);
 	int c , counter;
 	c = counter = 0;
-	while (((c = getchar()) != EOF) && c != '\n' && counter < (len - 1))
+	while (((c = getchar()) != EOF) && c != '\n')
 	{
 		if (counter == len) return counter;
 		line[counter++] = c;

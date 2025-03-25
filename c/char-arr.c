@@ -3,6 +3,7 @@
 int updateline(char line[], int len);
 int lineLen(char line[]);
 int copy(char line[], char longest_line[]);
+int clearLine(char line[]);
 
 #define MAXLength 100
 
@@ -19,27 +20,40 @@ int main()
             line[length - 1] = '\0';
             length--;
         }*/
-		if (length >= MAXlen)
+		if (length >= MAXlen){
 			MAXlen = length;
-		copy(line, longest_line);
+			copy(line, longest_line);
+		}
+		printf("Line: %s\nLongest_line: %s\nMaxLen: %d\nLength: %d\n", line, longest_line, MAXlen, length);
 	}
-	printf("\nLongest Line: %s\nLength: %d\n", longest_line, MAXlen-1);
+	printf("\nLongest Line: %s\nLength: %d\n", longest_line, MAXlen);
 	return 0;
 }
 
 int updateline(char line[], int len)
 {
-	line[0] = '\0';  
+	clearLine(line);
 	int c = ' ';
 	int counter = 0;
-	while ((c = getchar()) != EOF)
+	while (((c = getchar()) != EOF) && c != '\n')
 	{
-		printf("Char # %d: %c\n", counter,c );
+		// printf("Char # %d: %c\n", counter,c );
 		if (counter == len) return counter;
 		line[counter++] = c;
 	}
-	printf("Line : %s\nCounter: %d\n", line, counter);
+	// printf("Line : %s\nCounter: %d\n", line, counter);
 	return counter;
+}
+
+int clearLine(char line[])
+{
+	int counter = 0;
+	while(line[counter] != '\0')
+	{
+		line[counter] = '\0';
+		counter++;
+	}
+	return 0;
 }
 
 int lineLen(char line[])
@@ -57,7 +71,7 @@ int lineLen(char line[])
 
 int copy(char line[], char longest_line[])
 {
-	longest_line[0] = '\0';
+	clearLine(longest_line);
 	int counter = 0;
 	while((longest_line[counter] = line[counter]) != '\0')
 		counter++;

@@ -36,8 +36,9 @@ int updateline(char line[], int len)
 	c = counter = 0;
 	while (((c = getchar()) != EOF) && c != '\n')
 	{
-		if (counter == len) return counter;
-		line[counter++] = c;
+		// if (counter == len) return counter;
+		if (counter < len) line[counter] = c;
+		counter++;
 	}
 	return counter;
 }

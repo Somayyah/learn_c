@@ -19,6 +19,11 @@ int main()
 			copy(line, longest_line);
 		}
 	}
+	if (MAXlen == 0) 
+	{
+		printf("Empty output\n");
+		return 0;
+	}
 	printf("\nLongest Line: %s\nLength: %d\n", longest_line, MAXlen);
 	return 0;
 }

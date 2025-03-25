@@ -31,9 +31,9 @@ int main()
 int updateline(char line[], int len)
 {
 	clearLine(line);
-	int c = ' ';
-	int counter = 0;
-	while (((c = getchar()) != EOF) && c != '\n')
+	int c , counter;
+	c = counter = 0;
+	while (((c = getchar()) != EOF) && c != '\n' && counter < (len - 1))
 	{
 		if (counter == len) return counter;
 		line[counter++] = c;

@@ -7,18 +7,26 @@ say every n columns. Should n be a variable or a symbolic parameter?
 #include <stdio.h>
 
 #define		TABSTOP		8
+#define		MAXLen		100
 
-int detab();
-int updateline(char line[], int len);
+int detab(char line[]);
+int fillLine(char line[], int len);
 int clearLine(char line[]);
 
 int main()
 {
+	char line[MAXLen] = "";
+	char detabLine[MAXLen] = "";
+	while((length = fillLine(line, MAXLen)) != 0)
+	{
+		detabLine = detab(line, length);
+		printf("%s\n", detabLine);
+	}
 	return 0;
 }
 
 
-int updateline(char line[], int len)
+int fillLine(char line[], int len)
 {
 	clearLine(line);
 	int c , counter;
@@ -43,7 +51,7 @@ int clearLine(char line[])
 	return 0;
 }
 
-int detab()
+int detab(char line[])
 {
 	return 0;
 }

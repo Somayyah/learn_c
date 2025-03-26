@@ -7,7 +7,6 @@ say every n columns. Should n be a variable or a symbolic parameter?
 #include <stdio.h>
 
 #define		TABSTOP		8
-#define		N			8		// Change it later
 
 int detab();
 int updateline(char line[], int len);

@@ -9,7 +9,7 @@ say every n columns. Should n be a variable or a symbolic parameter?
 #define		TABSTOP		8
 #define		MAXLen		100
 
-int detab(char line[]);
+int detab(char line[], int len);
 int fillLine(char line[], int len);
 int clearLine(char line[]);
 
@@ -51,7 +51,8 @@ int clearLine(char line[])
 	return 0;
 }
 
-int detab(char line[])
+char[] detab(char line[], int len)
 {
+	char detabedLine[len] = 0;
 	return 0;
 }

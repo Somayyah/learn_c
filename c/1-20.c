@@ -54,5 +54,6 @@ int clearLine(char line[])
 char[] detab(char line[], int len)
 {
 	char detabedLine[len] = 0;
+	clearLine(line);
 	return 0;
 }

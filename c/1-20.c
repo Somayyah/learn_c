@@ -16,11 +16,12 @@ int clearLine(char line[]);
 int main()
 {
 	char line[MAXLen] = "";
-	char detabLine[MAXLen] = "";
+	int length = 0;
+	int detabLine = 0;
 	while((length = fillLine(line, MAXLen)) != 0)
 	{
-		detabLine = detab(line, length);
-		printf("%s\n", detabLine);
+		if ((detabLine = detab(line, length)) == 0)
+			printf("%s\n", line);
 	}
 	return 0;
 }
@@ -51,9 +52,19 @@ int clearLine(char line[])
 	return 0;
 }
 
-char[] detab(char line[], int len)
+int detab(char line[], int len)
 {
-	char detabedLine[len] = 0;
-	clearLine(line);
+	char tempString[len] = "";
+	int counter = 0;
+	int column = 0;
+	while (line[counter] != '\0')
+	{
+		// if(counter % TABSTOP != 0) tempString[counter] = line[counter];
+		if (line[counter] != '\t') 
+			
+			
+		counter++;
+		column++;
+	}
 	return 0;
 }

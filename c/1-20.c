@@ -64,8 +64,10 @@ int detab(char line[], char tempString[], int len)
 		if (line[counter] != '\t') 
 			tempString[column++] = line[counter++];
 		else
-			for (int i = column; i < (TABSTOP - counter); column++)
+			for (int i = column; i < TABSTOP; i++)
 				tempString[column++] = ' ';
+		//column = 0;
 	}
+	printf("%d %c",column, tempString[column]);
 	return 0;
 }

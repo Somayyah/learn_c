@@ -55,8 +55,9 @@ int clearLine(char line[])
 
 int detab(char line[], char tempString[], int len)
 {
-	int counter = 0;
-	int column = 0;
+	int counter = 0; // to follow Line
+	int column = 0; // To follow tempString
+	clearLine(tempString);
 	while (line[counter] != '\0')
 	{
 		// if(counter % TABSTOP != 0) tempString[counter] = line[counter];

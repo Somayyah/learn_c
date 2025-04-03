@@ -9,19 +9,20 @@ say every n columns. Should n be a variable or a symbolic parameter?
 #define		TABSTOP		8
 #define		MAXLen		100
 
-int detab(char line[], int len);
+int detab(char line[], char tempString[], int len);
 int fillLine(char line[], int len);
 int clearLine(char line[]);
 
 int main()
 {
+	char tempString[MAXLen*8] = "";
 	char line[MAXLen] = "";
 	int length = 0;
 	int detabLine = 0;
 	while((length = fillLine(line, MAXLen)) != 0)
 	{
-		if ((detabLine = detab(line, length)) == 0)
-			printf("%s\n", line);
+		if ((detabLine = detab(line, tempString, length)) == 0)
+			printf("%s\n", tempString);
 	}
 	return 0;
 }
@@ -52,24 +53,18 @@ int clearLine(char line[])
 	return 0;
 }
 
-int detab(char line[], int len)
+int detab(char line[], char tempString[], int len)
 {
-	char tempString[MAXLen] = "";
 	int counter = 0;
 	int column = 0;
 	while (line[counter] != '\0')
 	{
 		// if(counter % TABSTOP != 0) tempString[counter] = line[counter];
 		if (line[counter] != '\t') 
-		{
-			tempString[column] = line[counter++];
-			column++;
-		}
+			tempString[column++] = line[counter++];
 		else
-			for (int i = column; i < (MAXTAB - counter); column++){
-				tempString[column] = " ";
-			}
-		// column++;
+			for (int i = column; i < (TABSTOP - counter); column++)
+				tempString[column++] = ' ';
 	}
 	return 0;
 }

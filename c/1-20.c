@@ -54,16 +54,21 @@ int clearLine(char line[])
 
 int detab(char line[], int len)
 {
-	char tempString[len] = "";
+	char tempString[MAXLen] = "";
 	int counter = 0;
 	int column = 0;
 	while (line[counter] != '\0')
 	{
 		// if(counter % TABSTOP != 0) tempString[counter] = line[counter];
 		if (line[counter] != '\t') 
-			tempString[counter] = line[counter];
-			
-		counter++;
+		{
+			tempString[column] = line[counter++];
+			column++;
+		}
+		else
+			for (int i = column; i < (MAXTAB - counter); column++){
+				tempString[column] = " ";
+			}
 		// column++;
 	}
 	return 0;

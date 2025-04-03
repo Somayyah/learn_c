@@ -56,15 +56,15 @@ int detab(char line[], int len)
 {
 	char tempString[len] = "";
 	int counter = 0;
-	// int column = 0;
+	int column = 0;
 	while (line[counter] != '\0')
 	{
 		// if(counter % TABSTOP != 0) tempString[counter] = line[counter];
 		if (line[counter] != '\t') 
-			
+			tempString[counter] = line[counter];
 			
 		counter++;
-		column++;
+		// column++;
 	}
 	return 0;
 }

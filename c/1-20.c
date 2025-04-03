@@ -57,12 +57,14 @@ int detab(char line[], char tempString[], int len)
 {
 	int counter = 0; // to follow Line
 	int column = 0; // To follow tempString
+	//int columnNumber = MAXLen;
 	clearLine(tempString);
 	while (line[counter] != '\0')
 	{
 		// if(counter % TABSTOP != 0) tempString[counter] = line[counter];
-		if (line[counter] != '\t') 
+		if (line[counter] != '\t'){ 
 			tempString[column++] = line[counter++];
+		}
 		else
 			for (int i = column; i < TABSTOP; i++)
 				tempString[column++] = ' ';

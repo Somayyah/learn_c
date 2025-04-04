@@ -57,7 +57,6 @@ int detab(char line[], char tempString[], int len)
 {
 	int counter = 0; // to follow Line
 	int column = 0; // To follow tempString
-	//int columnNumber = MAXLen;
 	clearLine(tempString);
 	while (line[counter] != '\0')
 	{

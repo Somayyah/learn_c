@@ -21,6 +21,7 @@ int main()
 	int detabLine = 0;
 	while((length = fillLine(line, MAXLen)) != 0)
 	{
+		printf("Line out : %s\n", line);
 		if ((detabLine = detab(line, tempString, length)) == 0)
 			printf("%s\n", tempString);
 	}
@@ -38,6 +39,7 @@ int fillLine(char line[], int len)
 		if (counter == len) return counter;
 		line[counter++] = c;
 	}
+	printf("Line in : %s\n", line);
 	return counter;
 }
 
@@ -66,7 +68,7 @@ int detab(char line[], char tempString[], int len)
 		}
 		else
 			for (int i = column; i < TABSTOP; i++)
-				tempString[column++] = ' ';
+				tempString[column++] = '%';
 		//column = 0;
 	}
 	printf("%d %c",column, tempString[column]);

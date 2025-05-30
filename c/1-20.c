@@ -57,20 +57,5 @@ int clearLine(char line[])
 
 int detab(char line[], char tempString[], int len)
 {
-	int counter = 0; // to follow Line
-	int column = 0; // To follow tempString
-	clearLine(tempString);
-	while (line[counter] != '\0')
-	{
-		// if(counter % TABSTOP != 0) tempString[counter] = line[counter];
-		if (line[counter] != '\t'){ 
-			tempString[column++] = line[counter++];
-		}
-		else
-			for (int i = column; i < TABSTOP; i++)
-				tempString[column++] = '%';
-		//column = 0;
-	}
-	printf("%d %c",column, tempString[column]);
 	return 0;
 }

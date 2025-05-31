@@ -16,7 +16,7 @@ int clearLine(char line[]);
 int main()
 {
 	char tempString[MAXLen] = "";
-	char line[MAXLen] = "\t\t";
+	char line[MAXLen] = "\t\tHello";
 	int length = 0;
 	int detabLine = 0;
 	/*while((length = fillLine(line, MAXLen)) != 0)
@@ -71,7 +71,7 @@ int detab(char line[], char tempString[])
 		{
 			if (line_counter == 0) spaces = 8;
 			else
-				spaces = (((temp_counter / TABSTOP) + ((temp_counter % TABSTOP) > 0 )) * TABSTOP ) - temp_counter;
+				spaces = (TABSTOP - (temp_counter % TABSTOP)) % TABSTOP;			
 			if (spaces < 0) spaces = spaces*(-1);
 			for (; spaces > 0 ; spaces--)
 				tempString[temp_counter++] = '*';

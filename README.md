@@ -8,3 +8,5 @@ While solving each exercise I'll try to review it's dump and write my own assemb
 
 + http://challenges.re/48
 + http://challenges.re/49
+
+// TODO: revisit 1-2{2,3,4} when well-rested

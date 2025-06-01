@@ -4,6 +4,7 @@ unmatched parentheses, brackets and braces. Don't forget about quotes, both sing
 escape sequences, and comments. (This program is hard if you do it in full generality.)
 */
 
+	// TODO: revisit 1-24 when well-rested
 #include <stdio.h>
 
 int main()

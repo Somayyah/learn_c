@@ -10,6 +10,7 @@ before the specified column.
 #define		COLUMN		3
 #define		MAXLen		1000
 
+int wrap(char line[], char tempString[]);
 int fold(char line[], char tempString[]);
 int fillLine(char line[], int len);
 int clearLine(char line[]);
@@ -55,7 +56,7 @@ int clearLine(char line[])
 	return 0;
 }
 
-int fold(char line[], char tempString[])
+int wrap(char line[], char tempString[])
 {
 	int line_counter = 0;
 	int temp_counter = 0;
@@ -73,6 +74,19 @@ int fold(char line[], char tempString[])
 			tempString[temp_counter++] = '\n';
 			tempString[temp_counter++] = line[line_counter++];
 		}
+	}
+	tempString[temp_counter] = '\0';
+	return 0;
+}
+
+int fold(char line[], char tempString[])
+{
+	int line_counter = 0;
+	int temp_counter = 0;
+	int edge = 1;
+	while(line[line_counter] != '\0')
+	{
+		
 	}
 	tempString[temp_counter] = '\0';
 	return 0;

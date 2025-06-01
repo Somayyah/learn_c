@@ -16,7 +16,7 @@ int clearLine(char line[]);
 int main()
 {
 	char tempString[MAXLen] = "";
-	char line[MAXLen] = "Hello    ";
+	char line[MAXLen] = "";
 	int length = 0;
 	int entabLine = 0;
 	while((length = fillLine(line, MAXLen)) != 0)

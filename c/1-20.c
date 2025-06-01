@@ -6,7 +6,7 @@ say every n columns. Should n be a variable or a symbolic parameter?
 
 #include <stdio.h>
 
-#define		TABSTOP		8
+#define		TABSTOP		4
 #define		MAXLen		100
 
 int detab(char line[], char tempString[]);
@@ -16,17 +16,15 @@ int clearLine(char line[]);
 int main()
 {
 	char tempString[MAXLen] = "";
-	char line[MAXLen] = "\t\tHello";
+	char line[MAXLen] = "";
 	int length = 0;
 	int detabLine = 0;
-	/*while((length = fillLine(line, MAXLen)) != 0)
+	while((length = fillLine(line, MAXLen)) != 0)
 	{
 		if ((detabLine = detab(line, tempString)) == 0)
 			printf("%s\n", tempString);
 		clearLine(tempString);
-	}*/
-	detabLine = detab(line, tempString);
-	printf("%s\n", tempString);
+	}
 	return 0;
 }
 
@@ -63,20 +61,23 @@ int detab(char line[], char tempString[])
 	int spaces = 0;
 	while(line[line_counter] != '\0')
 	{
-		if (line[line_counter] != '\t')
+		if (line[line_counter] != 9 )
 		{
 			tempString[temp_counter++] = line[line_counter++];
 		}
 		else
 		{
-			if (line_counter == 0) spaces = 8;
-			else
-				spaces = (TABSTOP - (temp_counter % TABSTOP)) % TABSTOP;			
-			if (spaces < 0) spaces = spaces*(-1);
-			for (; spaces > 0 ; spaces--)
-				tempString[temp_counter++] = '*';
-			line_counter++;
+            spaces = (TABSTOP - (temp_counter % TABSTOP)) % TABSTOP;
+
+            if (spaces == 0) spaces = TABSTOP;
+
+            for (; spaces > 0; spaces--)
+                tempString[temp_counter++] = '*';
+
+            line_counter++;	
 		}
 	}
+	
+	tempString[temp_counter] = '\0';  // Null-terminate the result
 	return 0;
 }

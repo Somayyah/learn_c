@@ -16,17 +16,15 @@ int clearLine(char line[]);
 int main()
 {
 	char tempString[MAXLen] = "";
-	char line[MAXLen] = "Hello         World!";
+	char line[MAXLen] = "Hello    ";
 	int length = 0;
 	int entabLine = 0;
-	/*while((length = fillLine(line, MAXLen)) != 0)
+	while((length = fillLine(line, MAXLen)) != 0)
 	{
 		if ((entabLine = entab(line, tempString)) == 0)
 			printf("%s\n", tempString);
 		clearLine(tempString);
-	}*/
-	entabLine = entab(line, tempString);
-	printf("%s\n",tempString);
+	}
 	return 0;
 }
 
@@ -70,15 +68,17 @@ int entab(char line[], char tempString[])
 		}
 		else
 		{
-			while(line[line_counter++] == ' ')
+			while(line[line_counter] == ' ')
+			{
 				spaces++;
+				line_counter++;
+			}
 			tabs = spaces / TABSTOP;
 			spaces = spaces -  (tabs * TABSTOP);
 			for(; tabs > 0; tabs--)
-				tempString[temp_counter++] = '*';
+				tempString[temp_counter++] = '\t';
 			for(; spaces > 0; spaces--)
-				tempString[temp_counter++] = '^';
-			//line_counter++;
+				tempString[temp_counter++] = ' ';
 			spaces = tabs = 0;
 		}
 	}

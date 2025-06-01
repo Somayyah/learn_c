@@ -72,7 +72,7 @@ int detab(char line[], char tempString[])
             if (spaces == 0) spaces = TABSTOP;
 
             for (; spaces > 0; spaces--)
-                tempString[temp_counter++] = '*';
+                tempString[temp_counter++] = ' ';
 
             line_counter++;	
 		}

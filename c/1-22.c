@@ -7,7 +7,7 @@ before the specified column.
 
 #include <stdio.h>
 
-#define		COLUMN		8
+#define		COLUMN		3
 #define		MAXLen		1000
 
 int fold(char line[], char tempString[]);
@@ -71,7 +71,7 @@ int fold(char line[], char tempString[])
 			if (tempString[temp_counter - 1] != '\t' && tempString[temp_counter] != ' ')
 				tempString[temp_counter++] = '-';
 			tempString[temp_counter++] = '\n';
-			line_counter++;
+			tempString[temp_counter++] = line[line_counter++];
 		}
 	}
 	tempString[temp_counter] = '\0';

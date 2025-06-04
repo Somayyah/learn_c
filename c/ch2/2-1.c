@@ -15,6 +15,30 @@ unsigned long to_power_long_unsigned(int x);
 
 int main()
 {
+	printf("=================== Via limits.h ===================\n\n");
+
+	printf("Minimum value of signed\n\n");
+
+	printf("Char : %d\n", SCHAR_MIN);
+	printf("Short : %d\n", SHRT_MIN);
+	printf("Int : %d\n", INT_MIN);
+	printf("Long : %ld\n\n", LONG_MIN);
+
+	printf("Maximum value of signed\n\n");
+
+	printf("Char : %d\n", SCHAR_MAX);
+	printf("Short : %d\n", SHRT_MAX);
+	printf("Int : %d\n" , INT_MAX);
+	printf("Long : %ld\n\n", LONG_MAX);
+
+	printf("Maximum value of unsigned\n\n");
+
+	printf("Char : %u\n", UCHAR_MAX);
+	printf("Short : %u\n", USHRT_MAX);
+	printf("Int : %u\n" , UINT_MAX);
+	printf("Long : %lu\n\n", ULONG_MAX);
+  
+
 	printf("================ Ranges calculated ================\n\n");
 	
 	printf("Signed:\n\n");

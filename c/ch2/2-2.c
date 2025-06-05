@@ -8,5 +8,11 @@ s[i] = c;
 
 int main()
 {
+	int c, lim = 5;
+	for (int i=0; i < lim-1 ; ++i)
+	{
+		if (c=getchar()) != '\n' && c != EOF)
+			s[i] = c;
+	}
 	return 0;
 }

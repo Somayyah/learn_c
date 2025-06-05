@@ -8,11 +8,18 @@ s[i] = c;
 
 int main()
 {
-	int c, lim = 5;
-	for (int i=0; i < lim-1 ; ++i)
+	int i, c, lim = 5;
+	char s[lim];
+	for (;i < lim-1 ; ++i)
 	{
-		if (c=getchar()) != '\n' && c != EOF)
-			s[i] = c;
+		c = getchar();
+		if (c == '\n')
+			break;
+		if(c == EOF)
+			break;
+		s[i] = c;
 	}
+	s[i] = '\0';
+	printf("Result: %s\n", s);
 	return 0;
 }

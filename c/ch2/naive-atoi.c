@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 
-int atoi(char s[]);
+int naive_atoi(char s[]);
 int robust_atoi(char s[]);
 
 int main()
@@ -13,7 +13,7 @@ int main()
 
 /* atoi: convert s to integer */
 
-int atoi(char s[])
+int naive_atoi(char s[])
 {
 	int i, n;
 	n = 0;
@@ -24,36 +24,24 @@ int atoi(char s[])
 
 int robust_atoi(char s[])
 {
-	int flag = 1, i, n, length;
-	i = length = n = 0;
-	
-	while( s[i] != '\0')
-	{
-		if ( s[i] >= '0' && s[i] <= '9')
-		{
-			n = 10 * n + (s[i++] - '0');
-		}
-		else if (s[i] == ' ' || s[i] == '\t')
-			i++;
-		else if (s[i] == '-' || s[i] == '+') 
-		{
-			flag = (-1);
-			i++;
-		}
-		else
-		{
-			printf("Not a number\n");
-			return 0;
-		}
-	}
-
-	return n * flag;
+	int i, n;
+	n = 0;
+	for (i = 0; s[i] >= '0' && s[i] <= '9'; ++i)
+		n = 10 * n + (s[i] - '0');
+	return n;
 }
 
 /*
--ve or +ve numbers?
-White spaces?
-sign before / after spaces?
-non numeric chars?
-overflow?!
+| Input                     | Expected Output | Notes                        |
+| ------------------------- | --------------- | ---------------------------- |
+| `"123"`                   | `123`           | Normal case                  |
+| `"-123"`                  | `-123`          | -ve number                   |
+| `"   +456"`               | `456`           | Leading whitespace + sign    |
+| `"  -42abc"`              | `-42`           | Stop at non-digit            |
+| `"abc123"`                | `0`             | Invalid start                |
+| `""`                      | `0`             | Empty string                 |
+| `"999999999999999999999"` | ??              | Overflow?!                   |
+| `" + 123"`                | `0` or error    | Space after sign = invalid   |
+| `"--123"`                 | `0` or error    | Double sign = invalid        |
+| `"+-123"`                 | `0` or error    | Mixed signs = invalid        |
 */

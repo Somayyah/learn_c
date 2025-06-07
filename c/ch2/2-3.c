@@ -18,8 +18,8 @@ int main()
 
 int htoi(char h[])
 {
-	int i, n, final_value;
-	final_value = i = n = 0;
+	int i, n, final_value, digit;
+	digit = final_value = i = n = 0;
 	if(h[i] == '\0')
 	{
 		printf("Empty input\n");
@@ -27,9 +27,17 @@ int htoi(char h[])
 	}
 	while(h[i] != '\0')
 	{
+		digit = 0;
 		# int = ∑ (digitₙ × 16ⁿ)
 		if( ( h[i] >= '0' && h[i] <= '9' ) || (h[i] >= 'a' && h[i] <= 'f') || h[i] >= 'A' && h[i] <= 'F' )
 		{
+			if ( ( h[i] >= '0' && h[i] <= '9' ) )
+				digit = h[i] - '0';
+			else if ((h[i] >= 'a' && h[i] <= 'f'))
+				digit = h[i] - 'a' + 10;
+			else
+				digit = h[i] - 'A' + 10;
+			final_value = final_value * i ;
 			
 		} else 
 		{

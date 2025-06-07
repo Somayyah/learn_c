@@ -28,6 +28,14 @@ int htoi(char h[])
 	while(h[i] != '\0')
 	{
 		# int = ∑ (digitₙ × 16ⁿ)
+		if( ( h[i] >= '0' && h[i] <= '9' ) || (h[i] >= 'a' && h[i] <= 'f') || h[i] >= 'A' && h[i] <= 'F' )
+		{
+			
+		} else 
+		{
+			printf("Worng input\n");
+			exit(-1);
+		}
 	}
 	return 0;
 }

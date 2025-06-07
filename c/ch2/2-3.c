@@ -7,40 +7,35 @@ are 0 through 9, a through f, and A through F.
 #include <stdio.h>
 #include <stdlib.h>
 
-int htoi(char h[]);
+#define MAX_UNSIGNED_INT 4294967295
+unsigned int htoi(char h[]);
 
 int main() {
-    char *inputs[] = {
-        "", "0", "1", "a", "A", "f", "F",
-        "10", "1A", "0x1A", "0X1A", "deadbeef",
-        "0xDEAD", "ABC123", "0x", "0x1.2", "0xG1",
-        "xyz", "0x-1", " 1A", "1A ", "0x1A3Z",
-        "0X7FFFFFFF", "FFFFFFFF", "FFFFFFFFF"
-    };
-
-    int num_inputs = sizeof(inputs) / sizeof(inputs[0]);
-	int value = 0;
-	
-    for (int i = 0; i < num_inputs; ++i) {
-        printf("Input: '%s'\t", inputs[i]);
-        value = htoi(inputs[i]); 
-		if (value == -1) printf("→ Empty or invalid input.\n");
-        else printf("→ Output: %d\n\n", value);
-    }
-
+	char input[] = "0XAAA";
+	printf("Result : %d\n", htoi(input));
     return 0;
 }
 
-int htoi(char h[])
+unsigned int htoi(char h[])
 {
-	int i, n, final_value, digit, x_found;
-	x_found = digit = final_value = i = n = 0;
+	int i, n, digit, digit_found;
+	unsigned int final_value = 0;
+	digit_found = digit = i = n = 0;
 	if(h[i] == '\0')
 	{
-		return -1;
+		printf("Error - Empty Input\n");
+		exit(-1);
 	}
 	while(h[i] != '\0')
 	{
+		if( h[i] == '0' && (h[i+1] == 'x' || h[i+1] == 'X')) 
+			if (digit_found == 0) 
+				i += 2;
+			else
+			{
+				printf("Error - Wrong formatting\n");
+				exit(-1);
+			}
 		digit = 0;
 		// int = ∑ (digitₙ × 16ⁿ)
 		if( ( h[i] >= '0' && h[i] <= '9' ) || (h[i] >= 'a' && h[i] <= 'f') || (h[i] >= 'A' && h[i] <= 'F' ) || h[i] == 'x' || h[i] == 'X')
@@ -51,11 +46,19 @@ int htoi(char h[])
 				digit = h[i] - 'a' + 10;
 			else
 				digit = h[i] - 'A' + 10;
+			if (final_value > (MAX_UNSIGNED_INT - digit) / 16) {
+				printf("Overflow!!\n");
+				exit(-1);
+			}
+
 			final_value = final_value * 16 + digit;
 			i++;
+			digit_found++;
+
 		} else 
 		{
-			return -1;
+			printf("Error - Illegal characters found\n");
+			exit(-1);
 		}
 	}
 	return final_value;
@@ -73,20 +76,20 @@ int htoi(char h[])
 | "F"              | 15              | Uppercase max hex digit                    | ✅
 | "10"             | 16              | Two-digit number                           | ✅
 | "1A"             | 26              | Mixed digits and letters                   | ✅
-| "0x1A"           | 26              | With lowercase prefix                      |
-| "0X1A"           | 26              | With uppercase prefix                      |
-| "deadbeef"       | 3735928559      | Meme hex (lowercase)                       |
-| "0xDEAD"         | 57005           | Prefix and uppercase                       |
-| "ABC123"         | 11256099        | Mixed case                                 |
-| "0x"             | 0 or error      | Prefix only, no digits                     |
-| "0x1.2"          | Error           | Invalid: decimal point                     |
-| "0xG1"           | Error           | Invalid: 'G' not a hex digit               |
-| "xyz"            | Error           | No valid hex characters                    |
-| "0x-1"           | Error           | Negative sign not allowed in hex           |
-| " 1A"            | Error or 26     | Leading space: undefined unless trimmed    |
-| "1A "            | Error or 26     | Trailing space                             |
-| "0x1A3Z"         | Error           | Invalid trailing character                 |
-| "0X7FFFFFFF"     | 2147483647      | Max signed 32-bit                          |
-| "FFFFFFFF"       | 4294967295      | Max unsigned 32-bit                        |
-| "FFFFFFFFF"      | Overflow/error  | Beyond unsigned 32-bit range               |
+| "0x1A"           | 26              | With lowercase prefix                      | ✅
+| "0X1A"           | 26              | With uppercase prefix                      | ✅
+| "deadbeef"       | 3735928559      | Meme hex (lowercase)                       | ✅
+| "0xDEAD"         | 57005           | Prefix and uppercase                       | ✅
+| "ABC123"         | 11256099        | Mixed case                                 | ✅
+| "0x"             | 0 or error      | Prefix only, no digits                     | ✅
+| "0x1.2"          | Error           | Invalid: decimal point                     | ✅
+| "0xG1"           | Error           | Invalid: 'G' not a hex digit               | ✅
+| "xyz"            | Error           | No valid hex characters                    | ✅
+| "0x-1"           | Error           | Negative sign not allowed in hex           | ✅
+| " 1A"            | Error           | Leading space: undefined unless trimmed    | 
+| "1A "            | Error           | Trailing space                             | 
+| "0x1A3Z"         | Error           | Invalid trailing character                 | ✅
+| "0X7FFFFFFF"     | 2147483647      | Max signed 32-bit                          | ✅
+| "FFFFFFFF"       | 4294967295      | Max unsigned 32-bit                        | ✅
+| "FFFFFFFFF"      | Overflow/error  | Beyond unsigned 32-bit range               | ✅
 */

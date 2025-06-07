@@ -86,8 +86,8 @@ unsigned int htoi(char h[])
 | "0xG1"           | Error           | Invalid: 'G' not a hex digit               | ✅
 | "xyz"            | Error           | No valid hex characters                    | ✅
 | "0x-1"           | Error           | Negative sign not allowed in hex           | ✅
-| " 1A"            | Error           | Leading space: undefined unless trimmed    | 
-| "1A "            | Error           | Trailing space                             | 
+| " 1A"            | Error           | Leading space: undefined unless trimmed    | ✅
+| "1A "            | Error           | Trailing space                             | ✅
 | "0x1A3Z"         | Error           | Invalid trailing character                 | ✅
 | "0X7FFFFFFF"     | 2147483647      | Max signed 32-bit                          | ✅
 | "FFFFFFFF"       | 4294967295      | Max unsigned 32-bit                        | ✅

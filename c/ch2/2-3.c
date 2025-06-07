@@ -11,7 +11,7 @@ int htoi(char h[]);
 
 int main()
 {
-	char h[] = "";
+	char h[] = "A";
 	printf("The integer value : %d\n", htoi(h));
 	return 0;
 }
@@ -28,7 +28,7 @@ int htoi(char h[])
 	while(h[i] != '\0')
 	{
 		digit = 0;
-		# int = ∑ (digitₙ × 16ⁿ)
+		// int = ∑ (digitₙ × 16ⁿ)
 		if( ( h[i] >= '0' && h[i] <= '9' ) || (h[i] >= 'a' && h[i] <= 'f') || h[i] >= 'A' && h[i] <= 'F' )
 		{
 			if ( ( h[i] >= '0' && h[i] <= '9' ) )
@@ -37,22 +37,22 @@ int htoi(char h[])
 				digit = h[i] - 'a' + 10;
 			else
 				digit = h[i] - 'A' + 10;
-			final_value = final_value * i ;
-			
+			final_value = final_value * 16 + digit;
+			i++;
 		} else 
 		{
 			printf("Worng input\n");
 			exit(-1);
 		}
 	}
-	return 0;
+	return final_value;
 }
 
 /*
 | Input             | Expected Output | Notes                                     |
 |------------------|-----------------|--------------------------------------------|
 | ""               | 0 or error      | Empty string                               | ✅ 
-| "0"              | 0               | Simple case                                |
+| "0"              | 0               | Simple case                                | ✅
 | "1"              | 1               | Basic digit                                |
 | "a"              | 10              | Lowercase hex                              |
 | "A"              | 10              | Uppercase hex                              |

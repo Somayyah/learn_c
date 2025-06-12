@@ -3,35 +3,47 @@ Exercise 2-4. Write an alternative version of squeeze(s1,s2) that deletes each c
 s1 that matches any character in the string s2.
 */
 
-void squeeze(char s[], int c);
+#include <stdio.h>
+
+int squeeze(char s[], int c);
 int mysqueeze(char s[], char s2[]);
 
 int main()
 {
-	char s[] = "";
-	char s2[] = "";
-	int c = '';
-	printf("The new string : %s\n", mysqueeze(s, c, new_string));
+	char s[] = "hello world";
+	char s2[] = "aeiou";
+	int c = squeeze(s, 'l');
+	printf("The new string : %s\n", s);
 	return 0;
 }
 
 /* squeeze: delete all c from s */
-void squeeze(char s[], int c)
+int squeeze(char s[], int c)
 {
 	int i, j;
-	for (i = j = 0; s[i] != '\0'; i++)
-	if (s[i] != c)
-	s[j++] = s[i];
-	s[j] = '\0';
+	i = j = 0;
+	
+	while (s[i] != '\0')
+	{
+		if (s[i] != c)
+			s[j++] = s[i];
+		i++;
+	}
+		s[j] = '\0';
+	return 0;
 }
 
 int mysqueeze(char s[], char s2[])
 {
-	int i = 0;
+	int i , j;
+	i = j = 0;
 	while (s[i] != '\0')
 	{
-		
+		while (s2[j] != '\0')
+			if (s[i] != s2[j++]) s[i++] = s2[++i];
+		i++;
 	}
+	s[i] = '\0';
 	
 	return 0;
 }

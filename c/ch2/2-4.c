@@ -7,12 +7,12 @@ s1 that matches any character in the string s2.
 
 int squeeze(char s[], int c);
 int mysqueeze(char s[], char s2[]);
-int myreplace(char s[], char s2[]);
+int myreplace(char s[], char s2[], int x);
 
 int main()
 {
-	char s[] = "ababababab";
-	char s2[] = "aa"; // baaa
+	char s[] = "loloooÿÿÿÿ llololoolol lskdjfoiurt lrl llkjlj";
+	char s2[] = "l"; // baaa
 	int x = 'x';
 	int c = mysqueeze(s, s2);
 	printf("The new string : %s\n", s);
@@ -37,25 +37,21 @@ int squeeze(char s[], int c)
 
 int mysqueeze(char s[], char s2[])
 {
-	int i , j , k;
-	i = j = k = 0;
-
-	while (s2[k] != '\0' && s[i] != '\0')
-	{
-		while (s[i] != '\0')
-		{
-			if (s[i] != s2[k])
-				s[j++] = s[i];
-			i++;
-		}
+	int i , j ;
+	i = j = 0;
+	char exists[256] = {0};
+	
+	for (; s2[i] != '\0'; i++)
+		exists[s2[i]] = 1;
+	
+	i = j = 0;
+	
+	for (; s[i] != '\0'; i++)
+		if(!exists[s[i]])
+			s[j++] = s[i];
 		
-		s[j] = '\0';
-		k++;
-
-		i = j = 0;
-	}
-
-	return 0;
+	s[j] = '\0';
+    return 0;
 }
 
 /*

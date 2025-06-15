@@ -12,7 +12,7 @@ int myreplace(char s[], char s2[], int x);
 int main()
 {
 	char s[] = "loloooÿÿÿÿ llololoolol lskdjfoiurt lrl llkjlj";
-	char s2[] = "l"; // baaa
+	char s2[] = "loÿÿ"; // baaa
 	int x = 'x';
 	int c = mysqueeze(s, s2);
 	printf("The new string : %s\n", s);

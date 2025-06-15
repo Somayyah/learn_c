@@ -11,7 +11,7 @@ int myreplace(char s[], char s2[], int x);
 
 int main()
 {
-	char s[] = "loloooÿÿÿÿ llololoolol lskdjfoiurt lrl llkjlj";
+	char s[] = "loloooÿÿÿÿ llololoolol lskdjfoiurt lrl1233 ' ' llkjlj";
 	char s2[] = "loÿÿ"; // baaa
 	int x = 'x';
 	int c = mysqueeze(s, s2);
@@ -42,12 +42,12 @@ int mysqueeze(char s[], char s2[])
 	char exists[256] = {0};
 	
 	for (; s2[i] != '\0'; i++)
-		exists[s2[i]] = 1;
+		exists[(unsigned char)s2[i]] = 1;
 	
 	i = j = 0;
 	
 	for (; s[i] != '\0'; i++)
-		if(!exists[s[i]])
+		if(!exists[(unsigned char)s[i]])
 			s[j++] = s[i];
 		
 	s[j] = '\0';
@@ -85,7 +85,6 @@ int myreplace(char s[], char s2[], int x)
 
 /*
 
-Assume X = 
 | Test Case # | `s1` (Input String)      | `s2` (Characters to Delete) | Expected Result                                  | 
 | ----------- | ------------------------ | --------------------------- | ------------------------------------------------ | 
 | 1           | `"hello world"`          | `"aeiou"`                   | `"hll wrld"`                                     | ✅

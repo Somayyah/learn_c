@@ -7,6 +7,7 @@ s1 where any character from the string s2 occurs, or -1 if s1 contains no charac
 #include <stdio.h>
 
 #define		STANDARD_NUMBER_OF_CHARS	256
+
 int any(char s1[], char s2[]);
 
 int main()
@@ -30,5 +31,6 @@ int any(char s1[], char s2[])
 		for (i = 0; s1[i] != '\0'; i++)
 			if (exists[(unsigned char)s1[i]]) return (i);
 	}
+	
 	return -1;
 }

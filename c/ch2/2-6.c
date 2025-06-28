@@ -6,15 +6,25 @@ p = 3
 n = 5
 y = 1101 1010
 */
+#include <stdio.h>
 
 unsigned setbits(unsigned x,int p,int n,unsigned y);
 
 int main()
 {
+	unsigned int x = 100;
+	unsigned int y = 100;
+	int p = 0, n = 0;
+	
+	printf("%u\n", setbits(x,p,n, y) );
+	
 	return 0;
 }
 
 unsigned setbits(unsigned x,int p,int n,unsigned y)
 {
+	unsigned mask = ~(~0 << n);  
+	y = y & mask;
+	
 	return x; 
 }
